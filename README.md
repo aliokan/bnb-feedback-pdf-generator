@@ -42,3 +42,11 @@ The Excel file must have the following columns:
 - [ts-node](https://typestrong.org/ts-node/)
 - [exceljs](https://github.com/exceljs/exceljs)
 - [pdfme](https://pdfme.com/)
+
+## Troubleshooting
+
+### Error: Unexpected xml node in parseClose: filters
+
+Can be fixed by removing all the filters from the Excel file.
+
+```bash
