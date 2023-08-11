@@ -1,0 +1,5 @@
+node_modules
+export
+*.xlsx
+.~*
+yarn-error.log
