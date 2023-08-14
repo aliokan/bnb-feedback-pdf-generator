@@ -1,16 +1,17 @@
 import Excel, { CellValue } from "exceljs";
+import { writeFile } from 'node:fs/promises';
 
 type Row = {
     Gemeente?: string;
 }
 
 const inputPath = "./input.xlsx";
-const exportPath = "../export";
+const outputPath = "./data.json";
 
-const getData = async ():Promise<Row[] | undefined> => {
+const extractData = async (path: string):Promise<Row[] | undefined> => {
   try {
     const workbook = new Excel.Workbook();
-    await workbook.xlsx.readFile(inputPath);
+    await workbook.xlsx.readFile(path);
     const worksheet = workbook.worksheets[0]; // get first worksheet
 
     const columnCount = worksheet.actualColumnCount; // get number of columns
@@ -36,9 +37,19 @@ const getData = async ():Promise<Row[] | undefined> => {
   }
 };
 
+const saveData = async (path: string, data:string):Promise<void> => {
+  try {
+    await writeFile(path, data);
+  } catch (error) {
+    console.error("JSON file saving error:", error);
+  }
+};
+
 const main = async() => {
-    const data = await getData();
-    console.log(data);
+    const data = await extractData(inputPath);
+    const json = JSON.stringify(data);
+    console.log(json);
+    await saveData(outputPath, json);
 }
 
 main();
