@@ -1,7 +1,4 @@
-import { Template, BLANK_PDF} from "@pdfme/common";
-import { generate } from "@pdfme/generator";
 import Excel, { CellValue } from "exceljs";
-import { writeFileSync } from "fs";
 
 type Row = {
     Gemeente?: string;
@@ -39,37 +36,9 @@ const getData = async ():Promise<Row[] | undefined> => {
   }
 };
 
-const getTemplate = (): Template => {
-  return {
-    basePdf: BLANK_PDF,
-    schemas: [
-      {
-        title: {
-          type: "text",
-          position: { x: 0, y: 0 },
-          width: 100,
-          height: 10,
-        },
-      },
-    ],
-  };
-};
-
 const main = async() => {
     const data = await getData();
-    const template = getTemplate();
     console.log(data);
-    
-    await Promise.all(data?.map(async (row) => {
-        const municipality = row.Gemeente;
-        const inputs:Record<string, string>[] = [{
-            title: row.Gemeente || "",
-        }]
-        const pdf = await generate({template, inputs});
-    
-        writeFileSync(`${exportPath}/${municipality}.pdf`, pdf);
-    
-    }) || []);
 }
 
 main();

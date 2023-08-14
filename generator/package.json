@@ -8,8 +8,6 @@
         "generate": "ts-node ./src/index.ts"
     },
     "dependencies": {
-        "@pdfme/common": "^2.0.2",
-        "@pdfme/generator": "^2.0.2",
         "@types/node": "^20.4.9",
         "exceljs": "^4.3.0",
         "typescript": "^5.1.6"
