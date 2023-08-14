@@ -4,7 +4,7 @@ type Row = {
     Gemeente?: string;
 }
 
-const inputPath = "../input.xlsx";
+const inputPath = "./input.xlsx";
 const exportPath = "../export";
 
 const getData = async ():Promise<Row[] | undefined> => {
