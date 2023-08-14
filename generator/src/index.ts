@@ -7,10 +7,13 @@ type Row = {
     Gemeente?: string;
 }
 
+const inputPath = "../input.xlsx";
+const exportPath = "../export";
+
 const getData = async ():Promise<Row[] | undefined> => {
   try {
     const workbook = new Excel.Workbook();
-    await workbook.xlsx.readFile("./input.xlsx");
+    await workbook.xlsx.readFile(inputPath);
     const worksheet = workbook.worksheets[0]; // get first worksheet
 
     const columnCount = worksheet.actualColumnCount; // get number of columns
@@ -64,7 +67,7 @@ const main = async() => {
         }]
         const pdf = await generate({template, inputs});
     
-        writeFileSync(`./export/${municipality}.pdf`, pdf);
+        writeFileSync(`${exportPath}/${municipality}.pdf`, pdf);
     
     }) || []);
 }

@@ -21,12 +21,12 @@ yarn generate
 
 ### Input files
 
-- `./input.xlsx`: Excel file with the data to be used in the PDF generation.
-- `./template.pdf`: PDF template to be used in the PDF generation. 
+- `../input.xlsx`: Excel file with the data to be used in the PDF generation.
+- `../template.pdf`: PDF template to be used in the PDF generation. 
 
 ### Output files
 
-- `export/{{municipality-name}}.pdf`: Generated PDF file.
+- `../export/{{municipality-name}}.pdf`: Generated PDF file.
 
 ## Excel file format
 
@@ -46,5 +46,3 @@ The Excel file must have the following columns:
 ### Error: Unexpected xml node in parseClose: filters
 
 Can be fixed by removing all the filters from the Excel file.
-
-```bash
