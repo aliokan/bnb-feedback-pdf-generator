@@ -5,7 +5,7 @@
     "description": "Generates PDFs from Excel file",
     "license": "MIT",
     "scripts": {
-        "extract-data": "ts-node ./src/excel2json.ts"
+        "extract-data": "ts-node ./script/excel2json.ts"
     },
     "dependencies": {
         "@types/node": "^20.4.9",
