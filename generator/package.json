@@ -18,5 +18,8 @@
     "author": "Laurent Deketelaere <laurent.deketelaere@redpencil.io>",
     "devDependencies": {
         "ts-node": "^10.9.1"
+    },
+    "engines": {
+        "node": "18.x"
     }
 }
