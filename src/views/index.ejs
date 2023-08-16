@@ -10,6 +10,19 @@
   <div class="jumbotron">
     <h1><%= municipality %></h1>
   </div>
+  <ul>
+    <% data.forEach(([key, value])=> { %>
+        <li>
+            <h2>
+                <%= key %>
+            </h2>
+            <p>
+                <%= value %>
+            </p>
+        </li>
+        <hr />
+    <% }) %>
+</ul>
 </main>
 
 

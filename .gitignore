@@ -1,5 +1,5 @@
 node_modules
-export
+export/*.pdf
 *.xlsx
 .~*
 data.json
