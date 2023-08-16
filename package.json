@@ -5,9 +5,9 @@
     "description": "Generates PDFs from Excel file",
     "license": "MIT",
     "scripts": {
-        "extract-data": "ts-node ./script/excel2json.ts",
-        "start": "ts-node ./src/index.ts",
-        "generate-pdf": "ts-node ./script/generate-pdf.ts"
+        "extract-data": "ts-node ./src/tool/excel2json.ts",
+        "start": "DATA_PATH=./data.json ts-node ./src/server.ts",
+        "generate-pdf": "DATA_PATH=./data.json ts-node ./src/tool/generate-pdf.ts"
     },
     "dependencies": {
         "@types/express": "^4.17.17",
@@ -18,7 +18,7 @@
         "puppeteer": "^21.0.3",
         "typescript": "^5.1.6"
     },
-    "main": "src/index.ts",
+    "main": "src/server.ts",
     "author": "Laurent Deketelaere <laurent.deketelaere@redpencil.io>",
     "devDependencies": {
         "ts-node": "^10.9.1"

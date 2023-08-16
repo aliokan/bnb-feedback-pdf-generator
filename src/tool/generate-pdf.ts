@@ -1,19 +1,17 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { env } from 'node:process';
 import puppeteer, { Page } from 'puppeteer';
+import { MunicipalityData } from '../type/formattedType';
 
-type Row = {
-    Gemeente?: string;
-}
-
-const dataPath = "./data.json";
-const exportPath = "./export";
+const dataPath = env.DATA_PATH || "./data.json";
+const exportPath = env.EXPORT_PATH || "./export";
 
 const getMunicipalityList = async (path: string):Promise<string[] | undefined> => {
   try {
     const json = await readFile(path);
-    const data: Row[] = JSON.parse(json.toString());
+    const data: MunicipalityData[] = JSON.parse(json.toString());
 
-    return data.map(({Gemeente}) => Gemeente).filter((municipality): municipality is string => !!municipality);
+    return data.map(({municipality}) => municipality).filter((municipality): municipality is string => !!municipality);
   } catch (error) {
     console.error("JSON file parsing error:", error);
   }
@@ -35,6 +33,7 @@ const generatePDF = async (municipality: string, page: Page, exportPath: string)
 const main = async() => {
     const browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
+    console.log(dataPath)
     const municipalities = await getMunicipalityList(dataPath);
     console.log(municipalities);
     

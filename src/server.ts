@@ -1,21 +1,20 @@
 import express from "express";
 import { readFileSync } from "fs";
 import path from "path";
-
-type Row = {
-  Gemeente?: string;
-};
+import { MunicipalityData } from "./type/formattedType";
+import { env } from "process";
 
 const app = express();
-const json = readFileSync(`../data.json`);
-const data: Row[] = JSON.parse(json.toString());
+const json = readFileSync(env.DATA_PATH || `./data.json`);
+const data: MunicipalityData[] = JSON.parse(json.toString());
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.get("/:municipality", (req, res) => {
+  console.log(req.params.municipality);
   const municipalityData = data.find(
-    ({ Gemeente }) => Gemeente === req.params.municipality
+    ({ municipality }) => municipality === req.params.municipality
   );
 
   if (!municipalityData) {
