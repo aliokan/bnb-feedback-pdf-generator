@@ -1,0 +1,71 @@
+@font-face {
+  font-family: flanders-serif;
+  src: url(/fonts/flanders-serif-light.woff2) format("woff2"),
+    url(/fonts/flanders-serif-light.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: flanders-serif;
+  src: url(/fonts/flanders-serif-regular.woff2) format("woff2"),
+    url(/fonts/flanders-serif-regular.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: flanders-serif;
+  src: url(/fonts/flanders-serif-medium.woff2) format("woff2"),
+    url(/fonts/flanders-serif-medium.woff) format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: flanders-serif;
+  src: url(/fonts/flanders-serif-bold.woff2) format("woff2"),
+    url(/fonts/flanders-serif-bold.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: flanders-sans;
+  src: url(/fonts/flanders-sans-light.woff2) format("woff2"),
+    url(/fonts/flanders-sans-light.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: flanders-sans;
+  src: url(/fonts/flanders-sans-regular.woff2) format("woff2"),
+    url(/fonts/flanders-sans-regular.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: flanders-sans;
+  src: url(/fonts/flanders-sans-medium.woff2) format("woff2"),
+    url(/fonts/flanders-sans-medium.woff) format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: flanders-sans;
+  src: url(/fonts/flanders-sans-bold.woff2) format("woff2"),
+    url(/fonts/flanders-sans-bold.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback;
+}

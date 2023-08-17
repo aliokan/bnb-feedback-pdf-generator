@@ -11,6 +11,11 @@ const data: MunicipalityData[] = JSON.parse(json.toString());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.static("public"));
+// fonts and icons from ember-appuniversum
+app.use("/fonts", express.static(path.join(__dirname, '..', 'node_modules/@appuniversum/ember-appuniversum/public/fonts/')));
+app.use("/icons", express.static(path.join(__dirname, '..', 'node_modules/@appuniversum/ember-appuniversum/public/icons/')));
+
 app.get("/:municipality", (req, res) => {
   console.log(req.params.municipality);
   const municipalityData = data.find(
@@ -23,7 +28,7 @@ app.get("/:municipality", (req, res) => {
     res.render("index", {
       title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
       municipality: req.params.municipality,
-      data: Object.entries(municipalityData),
+      data: municipalityData,
     });
   }
 });
