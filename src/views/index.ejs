@@ -1,31 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <%- include('./partials/head'); %>
-</head>
-<body class="container">
-
-
-<main>
-  <div class="jumbotron">
-    <h1><%= municipality %></h1>
-  </div>
-  <ul>
-    <% data.forEach(([key, value])=> { %>
-        <li>
-            <h2>
-                <%= key %>
-            </h2>
-            <p>
-                <%= value %>
-            </p>
-        </li>
-        <hr />
-    <% }) %>
-</ul>
-</main>
-
-
-
-</body>
+<html lang="nl">
+  <head>
+    <%- include('./partials/head'); %>
+  </head>
+  <body class="m-24">
+    <main>
+      <%- include('./partials/introduction'); %>
+      <%- include('./partials/table'); %>
+      <section class="page">
+        <ul>
+          <% Object.entries(data).forEach(([key, value])=> { %>
+          <li>
+            <h2><%= key %></h2>
+            <p><%= value %></p>
+          </li>
+          <hr />
+          <% }) %>
+        </ul>
+      </section>
+    </main>
+  </body>
 </html>

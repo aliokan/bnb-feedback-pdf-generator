@@ -9,7 +9,7 @@
         "start": "DATA_PATH=./data.json ts-node ./src/server.ts",
         "dev": "nodemon --exec DEBUG=express:* DATA_PATH=./data.json ts-node ./src/server.ts",
         "generate-pdf": "DATA_PATH=./data.json ts-node ./src/tool/generate-pdf.ts",
-        "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css"
+        "tailwind:css": "nodemon -e ejs,css --exec postcss public/styles/tailwind.css -o public/styles/style.css"
     },
     "dependencies": {
         "@appuniversum/ember-appuniversum": "^2.11.0",

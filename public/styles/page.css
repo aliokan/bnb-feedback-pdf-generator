@@ -1,0 +1,12 @@
+@page {
+  size: A4;
+  margin: 0;
+  
+  @bottom-right {
+    content: "Page " counter(page) " of PPPPP " counter(pages);
+  }  
+}
+
+.page {
+  page-break-inside: avoid;
+}
