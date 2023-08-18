@@ -1,11 +1,14 @@
 export type Row = {
   Gemeente?: string;
+  Bestuursorgaan?: string;
+  Startdatum?: string;
+  Einddatum?: string;
   "URL LBLOD-omgeving"?: string;
   "Broken link to publications"?: string;
-  "Number of publications at the source:"?: string;
-  "Number of publications not yet collected"?: string;
+  "Number of publications at the source: "?: string;
+  "Number of publications not yet harvested"?: string;
   "Number of publications that have been archived (harvested but not found at source)"?: string;
-  "Publications not yet collected"?: string;
+  "Publications not yet harvested"?: string;
   "Publications not available anymore at source:"?: string;
   "Rechtsgrond (Besluit) (Bonusniveau)"?: string;
 

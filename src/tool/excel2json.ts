@@ -6,7 +6,9 @@ import { ENKey, NLKey, mapping, TranslationMap } from "./mapping";
 const inputPath = "./input.xlsx";
 const outputPath = "./data.json";
 
-const extractData = async (path: string): Promise<Row[] | undefined> => {
+const extractData = async (
+  path: string
+): Promise<{ headers: Excel.CellValue[]; data: Row[] }> => {
   try {
     const workbook = new Excel.Workbook();
     await workbook.xlsx.readFile(path);
@@ -14,14 +16,15 @@ const extractData = async (path: string): Promise<Row[] | undefined> => {
 
     const columnCount = worksheet.actualColumnCount; // get number of columns
     const rowCount = worksheet.actualRowCount; // get number of rows
-    const header = worksheet.getRow(1).values as CellValue[]; // get header row
+    const headers = worksheet.getRow(1).values as CellValue[]; // get header row
+    console.log(headers);
     const data = [];
     for (let i = 2; i <= rowCount; i++) {
       const row = (worksheet.getRow(i).values as CellValue[]).reduce(
         (acc, curr, index) => {
           return {
             ...acc,
-            ...(header[index] && { [header[index] as string]: curr }),
+            ...(headers[index] && { [headers[index] as string]: curr }),
           };
         },
         {} as Row
@@ -29,10 +32,11 @@ const extractData = async (path: string): Promise<Row[] | undefined> => {
       data.push(row);
     }
 
-    return data;
+    return { headers, data };
   } catch (error) {
     console.error("Excel file parsing error:", error);
   }
+  return { headers: [], data: [] };
 };
 
 const saveData = async (path: string, data: string): Promise<void> => {
@@ -51,7 +55,7 @@ const containsList = (value: string): boolean => {
   return value.includes("list");
 };
 
-const formatData = (data: Row[]) => {
+const formatData = (headers: CellValue[], data: Row[]) => {
   try {
     return data.map((row, i) => {
       const entries = Object.entries(row);
@@ -63,7 +67,7 @@ const formatData = (data: Row[]) => {
         "missing translation of",
         `${i}:`,
         filtered.filter(([key]) => {
-          return String(key).match(/[\s-]+/g);
+          return headers.includes(key);
         })
       );
       return Object.fromEntries(filtered);
@@ -71,12 +75,13 @@ const formatData = (data: Row[]) => {
   } catch (error) {
     console.error("Format data error:", error);
   }
+  return [];
 };
 
 const main = async () => {
-  const data = await extractData(inputPath);
+  const { headers, data } = await extractData(inputPath);
   if (!data) return;
-  const formated = formatData(data);
+  const formated = formatData(headers, data);
   const json = JSON.stringify(formated);
   await saveData(outputPath, json);
 };

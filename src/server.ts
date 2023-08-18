@@ -18,17 +18,17 @@ app.use("/icons", express.static(path.join(__dirname, '..', 'node_modules/@appun
 
 app.get("/:municipality", (req, res) => {
   console.log(req.params.municipality);
-  const municipalityData = data.find(
+  const municipalityDatas = data.filter(
     ({ municipality }) => municipality === req.params.municipality
   );
 
-  if (!municipalityData) {
+  if (municipalityDatas.length === 0) {
     res.status(404).send("Sorry cant find that!");
   } else {
     res.render("index", {
       title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
       municipality: req.params.municipality,
-      data: municipalityData,
+      data: municipalityDatas,
     });
   }
 });

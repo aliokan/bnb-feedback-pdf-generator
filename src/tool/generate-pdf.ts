@@ -10,8 +10,10 @@ const getMunicipalityList = async (path: string):Promise<string[] | undefined> =
   try {
     const json = await readFile(path);
     const data: MunicipalityData[] = JSON.parse(json.toString());
+    const municipalities = data.map(({municipality}) => municipality).filter((municipality): municipality is string => !!municipality);
+    const deduplicate = [...new Set(municipalities)];
 
-    return data.map(({municipality}) => municipality).filter((municipality): municipality is string => !!municipality);
+    return deduplicate;
   } catch (error) {
     console.error("JSON file parsing error:", error);
   }

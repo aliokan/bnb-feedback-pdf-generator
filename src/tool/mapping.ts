@@ -6,12 +6,15 @@ export type ENKey = keyof MunicipalityData;
 export type TranslationMap = Record<NLKey, ENKey>;
 export const mapping: TranslationMap = {
   Gemeente: "municipality",
+  Bestuursorgaan: "governingBody",
+  Startdatum: "startDate",
+  Einddatum: "endDate",
   "URL LBLOD-omgeving": "url",
   "Broken link to publications": "broken_list",
-  "Number of publications at the source:": "source_count",
-  "Number of publications not yet collected": "pending_count",
+  "Number of publications at the source: ": "source_count",
+  "Number of publications not yet harvested": "pending_count",
   "Number of publications that have been archived (harvested but not found at source)": "missing_count",
-  "Publications not yet collected": "pending_list",
+  "Publications not yet harvested": "pending_list",
   "Publications not available anymore at source:": "missing_list",
   "Rechtsgrond (Besluit) (Bonusniveau)": "legalResource_count",
 

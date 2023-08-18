@@ -1,6 +1,9 @@
 export type MunicipalityData = {
     municipality?: string;
+    governingBody?: string;
     url?: string;
+    startDate?: string;
+    endDate?: string;
     broken_list?: string;
     source_count?: number;
     pending_count?: number;
