@@ -16,6 +16,17 @@ app.use(express.static("public"));
 app.use("/fonts", express.static(path.join(__dirname, '..', 'node_modules/@appuniversum/ember-appuniversum/public/fonts/')));
 app.use("/icons", express.static(path.join(__dirname, '..', 'node_modules/@appuniversum/ember-appuniversum/public/icons/')));
 
+app.get("/", (req, res) => {
+  const municipalities = [... new Set(data.map(
+    ({ municipality }) => municipality
+  ))].sort();
+
+  res.render("index", {
+    title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
+    municipalities,
+  });
+});
+
 app.get("/:municipality", (req, res) => {
   console.log(req.params.municipality);
   const municipalityDatas = data.filter(
