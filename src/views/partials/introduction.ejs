@@ -9,12 +9,12 @@
     </h2>
     <section class="text-sm ml-20 my-4 pl-2">
       <p>
-        ABB ging na in hoeverre jouw bestuur voldoet aan de gelinkte publicatie-
-        en meldingsplicht. ABB heeft hiervoor in de maand juli en augustus
+        ABB ging na in hoeverre jouw bestuur voldoet aan de gelinkte
+        publicatieplicht. ABB heeft hiervoor in de maand juli en augustus
         onderzocht of gelinkte publicaties terug te vinden zijn op webtoepassing
-        van het bestuur voor de periode X. Dit betekent dat documenten die niet
-        gelinkt gepubliceerd zijn of na de periode gepubliceerd zijn, niet
-        verschijnen in de resultaten.
+        van het bestuur voor de periode januari - juni 2023. Dit betekent dat
+        documenten die niet gelinkt gepubliceerd zijn niet verschijnen in de
+        resultaten.
       </p>
     </section>
   </section>
@@ -29,59 +29,46 @@
         <p>
           Op de volgende pagina's kan u respectievelijk het rapport voor de
           gemeenteraad, raad voor maatschappelijk welzijn, college van
-          burgemeester en schepenen en vast bureau terug vinden. Volgende kolom
-          eigenschappen worden weergegeven:
+          burgemeester en schepenen en vast bureau terug vinden. Hieronder kan u
+          meer info vinden over de kolomeigenschappen "attribuut" en "score"
         </p>
       </section>
-      <h3 class="text-lg">Kolom eigenschappen</h3>
-      <section class="bg-white py-4">
-        <table class="table-auto border-separate border-spacing-2">
-          <tbody>
+      <h3 class="text-lg">Attribuut</h3>
+      <section class="bg-white py-4 pl-2">
+        <p>
+          Een gestandaardiseerde manier waarop we elementen uit de gelinkte
+          besluiten, agenda's en notulen weergeven. Om duidelijk te maken wat we
+          hiermee bedoelen geven we hieronder een overzicht van de verschillende
+          attributen met uitleg:
+        </p>
+      </section>
+      <section class="bg-white">
+        <table
+          class="border-separate border-spacing-0.5 text-left bg-stone-300 w-full"
+        >
+          <thead class="text-stone-950">
             <tr>
-              <td class="align-top">Maturiteitsniveau</td>
-              <td>
-                <span class="underline font-medium">Niveau 1:</span> omschrijft
-                het minimum scenario waaraan u moet voldoen om besluiten als
-                Linked Open Data te publiceren. Het omvat de basiselementen
-                waaruit notulen bestaan.
-              </td>
+              <th class="px-2">Attribuut</th>
+              <th class="px-2">Uitleg attribuut</th>
             </tr>
+          </thead>
+          <tbody class="text-sm bg-white">
+            <% attributeDescriptions.forEach(({name, description}) => { %>
             <tr>
-              <td class="align-top">Attribuut</td>
-              <td>
-                Een gestandaardiseerde annotatie die bestaat uit een entiteit en
-                eigenschap. Voor meer info over de betekenis van deze entiteiten
-                en eigenschappen zie
-                <a
-                  href="https://data.vlaanderen.be/doc/applicatieprofiel/besluit-publicatie/"
-                  >https://data.vlaanderen.be/doc/applicatieprofiel/besluit-publicatie/</a
-                >
-              </td>
+              <td class="align-top whitespace-nowrap px-2"><%= name %></td>
+              <td class="px-2"><%= description %></td>
             </tr>
-            <tr>
-              <td class="align-top">Verplicht</td>
-              <td>
-                <p>
-                  <span class="underline font-medium">Verplicht:</span> Dit
-                  attribuut is verplicht in te vullen
-                </p>
-                <p>
-                  <span class="underline font-medium">Optioneel:</span> Voor dit
-                  attribuut kan je kiezen om deze in te vullen of leeg te laten
-                </p>
-              </td>
-            </tr>
+            <% }) %>
           </tbody>
         </table>
       </section>
-      <h3 class="text-lg">Indicatoren</h3>
+      <h3 class="text-lg">Indicator</h3>
       <section class="bg-white pt-4">
         <p class="pl-2 py-4">
           De screening is gebaseerd op de gelinkt gepubliceerde documenten die
-          automatisch van de webtoepassing afgehaald konden worden en van de
-          meldingen gedaan voor 1 september 2022. Aan de hand van de indicator
-          kan je per attribuut inschatten of je gemeente in orde is of niet. We
-          werken met onderstaande indicatoren:
+          automatisch van de webtoepassing afgehaald konden worden. Aan de hand
+          van de indicator kan je per attribuut inschatten of je gemeente in
+          orde is of niet. We werken met onderstaande indicatoren:
         </p>
 
         <table
@@ -99,29 +86,29 @@
             <tr>
               <td class="w-24 h-12 bg-red-600"></td>
               <td class="align-top">
-                Er zijn geen documenten gevonden of geen melding ontvangen met
-                dit verplicht in te vullen attribuut.
+                Er zijn geen documenten gevonden met dit verplicht in te vullen
+                attribuut.
               </td>
             </tr>
             <tr>
               <td class="w-24 h-12 bg-green-600"></td>
               <td class="align-top">
-                Alle gevonden documenten of meldingen bevatten dit verplicht in
-                te vullen attribuut.
+                Alle gevonden documenten bevatten dit verplicht in te vullen
+                attribuut.
               </td>
             </tr>
             <tr>
-              <td class="w-24 h-4 bg-white"></td>
+              <td class="w-24 h-12 bg-white"></td>
               <td class="align-top">
-                Er zijn geen documenten gevonden of geen melding ontvangen met
-                dit verplicht in te vullen attribuut.
+                Er zijn documenten gevonden met dit optioneel in te vullen
+                attribuut.
               </td>
             </tr>
             <tr>
-              <td class="w-24 h-4 bg-yellow-400"></td>
+              <td class="w-24 h-12 bg-yellow-400"></td>
               <td class="align-top">
-                Er zijn geen documenten gevonden of geen melding ontvangen met
-                dit verplicht in te vullen attribuut.
+                Er zijn geen documenten gevonden met dit optioneel in te vullen
+                attribuut.
               </td>
             </tr>
           </tbody>
@@ -130,13 +117,20 @@
     </section>
   </section>
 
-  <section class="bg-stone-100 mt-8">
-    <!-- <div
-      class="text-stone-500 text-xl flex-none w-20 text-center pl-8"
-      style="writing-mode: sideways-lr"
-    >
-      Info
-    </div> -->
+  <section class="bg-stone-100 mt-8 break-words">
+    <div class="w-20 float-left">
+      <svg width="80" height="244">
+        <text
+          x="40"
+          y="122"
+          transform="rotate(-90, 40, 122)"
+          style="text-anchor: middle; font-size: 18px"
+        >
+          Info
+        </text>
+      </svg>
+    </div>
+
     <div class="ml-20">
       <h3 class="text-lg">Uitleg aanpak opzoeken publicatie</h3>
       <section class="bg-white text-sm py-4">
@@ -147,21 +141,23 @@
           gelinkt gepubliceerd zijn en automatisch van de webtoepassing gehaald
           konden worden, zijn verder bekeken. ABB heeft een inventarisatie
           gemaakt van de gevonden informatie, een samenvatting kan je hieronder
-          vinden
+          vinden.
         </p>
         <h3 class="text-lg bg-stone-100">Meer informatie</h3>
         <p class="ml-2">
           + Het is belangrijk om bij het publiceren van mogelijk gevoelige
           (persoons-)gegevens rekening te houden met.
           <a
+            class="text-blue-600 underline"
             href="https://lokaalbestuur.vlaanderen.be/faq/werking-bestuur/mogen-persoonsgegevens-bekend-gemaakt-worden-op-de-webtoepassing-van-het-lokaal-bestuur-bijvoorbeeld"
             >https://lokaalbestuur.vlaanderen.be/faq/werking-bestuur/mogen-persoonsgegevens-bekend-gemaakt-worden-op-de-webtoepassing-van-het-lokaal-bestuur-bijvoorbeeld</a
           >
         </p>
         <p class="ml-2">
           + Alle informatie rond de publicatie- en meldingsplicht kan je hier
-          terugvinden
+          terugvinden:
           <a
+            class="text-blue-600 underline"
             href="https://lokaalbestuur.vlaanderen.be/sites/default/files/public/thema/werking_bestuur/tabellen_publicatie_melding_update_20220601.pdf"
             >https://lokaalbestuur.vlaanderen.be/sites/default/files/public/thema/werking_bestuur/tabellen_publicatie_melding_update_20220601.pdf</a
           >

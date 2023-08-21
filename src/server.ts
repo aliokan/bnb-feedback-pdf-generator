@@ -1,8 +1,9 @@
-import express from "express";
-import { readFileSync } from "fs";
 import path from "path";
-import { MunicipalityData } from "./type/formattedType";
+import { readFileSync } from "fs";
 import { env } from "process";
+import express from "express";
+import { MunicipalityData } from "./type/formattedType";
+import { attributeDescriptions } from "./data/attributeDescription";
 
 const app = express();
 const json = readFileSync(env.DATA_PATH || `./data.json`);
@@ -28,7 +29,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:municipality", (req, res) => {
-  console.log(req.params.municipality);
   const municipalityDatas = data.filter(
     ({ municipality }) => municipality === req.params.municipality
   );
@@ -39,6 +39,7 @@ app.get("/:municipality", (req, res) => {
     res.render("municipality", {
       title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
       municipality: req.params.municipality,
+      attributeDescriptions,
       data: municipalityDatas,
     });
   }
