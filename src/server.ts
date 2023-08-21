@@ -25,7 +25,7 @@ app.get("/:municipality", (req, res) => {
   if (municipalityDatas.length === 0) {
     res.status(404).send("Sorry cant find that!");
   } else {
-    res.render("index", {
+    res.render("municipality", {
       title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
       municipality: req.params.municipality,
       data: municipalityDatas,
