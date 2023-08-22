@@ -6,10 +6,11 @@
     "license": "MIT",
     "scripts": {
         "extract-data": "ts-node ./src/tool/excel2json.ts",
-        "start": "DATA_PATH=./data.json ts-node ./src/server.ts",
-        "dev": "nodemon --exec DEBUG=express:* DATA_PATH=./data.json ts-node ./src/server.ts",
-        "generate-pdf": "DATA_PATH=./data.json ts-node ./src/tool/generate-pdf.ts",
-        "tailwind:css": "nodemon -e ejs,css --exec postcss public/styles/tailwind.css -o public/styles/style.css"
+        "start": "nodemon -e ts,ejs -w ./src --exec ts-node ./src/server.ts",
+        "dev": "concurrently 'yarn css:watch' 'yarn start'",
+        "css:build": "postcss ./src/styles/index.css -o public/styles/style.css",
+        "css:watch": "nodemon -e ejs,css --exec postcss ./src/styles/index.css -o public/styles/style.css",
+        "generate-pdf": "ts-node ./src/tool/generate-pdf.ts"
     },
     "dependencies": {
         "@appuniversum/ember-appuniversum": "^2.11.0",
@@ -19,7 +20,6 @@
         "ejs": "^3.1.9",
         "exceljs": "^4.3.0",
         "express": "^4.18.2",
-        "nodemon": "^3.0.1",
         "postcss": "^8.4.28",
         "postcss-cli": "^10.1.0",
         "puppeteer": "^21.0.3",
@@ -29,6 +29,8 @@
     "main": "src/server.ts",
     "author": "Laurent Deketelaere <laurent.deketelaere@redpencil.io>",
     "devDependencies": {
+        "concurrently": "^8.2.1",
+        "nodemon": "^3.0.1",
         "ts-node": "^10.9.1"
     },
     "engines": {
