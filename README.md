@@ -1,4 +1,6 @@
-# POC BNB Feedback Municipality PDF Generator
+# PoC // BNB Feedback Municipality PDF Generator
+
+This project is a proof of concept for generating PDF files for municipalities.  
 
 ### Prerequisites
 
@@ -11,35 +13,89 @@
 yarn install
 ```
 
-### Run
+### Steps to generate PDF
+
+#### 1. extract data from Excel
 
 ```bash
-yarn generate
+yarn extract-data
 ```
 
-## How to use
+It extract data from `./input.xlsx`, rename field in english snake case and save it in `./data.json`.
 
-### Input files
+#### 2. build CSS
 
-- `../input.xlsx`: Excel file with the data to be used in the PDF generation.
-- `../template.pdf`: PDF template to be used in the PDF generation. 
+```bash
+yarn css:build
+```
 
-### Output files
+Build CSS from `./src/styles/index.css` and save it in `./public/styles/style.css`. Inject all Tailwind's components in the CSS. 
 
-- `../export/{{municipality-name}}.pdf`: Generated PDF file.
+#### 3. start server
+
+```bash
+yarn start
+```
+
+Start Express server on `http://localhost:3000`
+
+#### 4. generate PDF
+
+```bash
+yarn generate-pdf
+```
+
+Generate PDF from `http://localhost:3000` and save it in `./export/{{municipality-name}}.pdf`.
 
 ## Excel file format
 
-The Excel file must have the following columns:
-- `Gemeente`: Municipality name.
+Each line of the Excel file represents a govening body. The column names are used to extract informations. 
 
-## Technologies
+Required columns:
+- `Gemeente`
+- `Bestuursorgaan`
+- `Agendapunt (Niveau 1)`
+- `Agendapunt - beschrijving (Niveau 1)`
+- `Agendapunt - titel (Niveau 1)`
+- `BehandelingVanAgendapunt (Niveau 1)`
+- `BehandelingVanAgendapunt - heeftOnderwerp (Niveau 1)`
+- `BehandelingVanAgendapunt - heeftStemming (Niveau 1)`
+- `Besluit (Niveau 1)`
+- `Besluit - beschrijving (Niveau 1)`
+- `Besluit - publicatiedatum (Bonusniveau)`
+- `Bestuurseenheid`
+- `Bestuurseenheid - naam (Bonusniveau)`
+- `Bestuursorgaan (Bonusniveau)`
+- `Bestuursorgaan - naam (Bonusniveau)`
+- `LegaleVerschijningsvorm - inhoud (Bonusniveau)`
+- `LegaleVerschijningsvorm - titel (Bonusniveau)`
+- `Stemming - heeftaanwezige (Niveau 1)`
+- `Stemming - heeftOnthouder (Niveau 1)`
+- `Stemming - heeftTegenstander (Niveau 1)`
+- `Stemming - heeftVoorstander (Niveau 1)`
+- `Zitting - geplandeStart (Niveau 1)`
+- `Zitting - heeftAanwezigeBijStart (Niveau 3)`
+- `Zitting - eind (Niveau 1)`
+
+## Technologies used
 
 - [Node.js](https://nodejs.org/en/)
 - [Typescript](https://www.typescriptlang.org/)
 - [ts-node](https://typestrong.org/ts-node/)
+
+### To extract data from Excel
+
 - [exceljs](https://github.com/exceljs/exceljs)
-- [pdfme](https://pdfme.com/)
+
+### To generate HTML
+
+- [express](https://expressjs.com/)
+- [ejs](https://ejs.co/)
+- [tailwindcss](https://tailwindcss.com/)
+
+### To generate PDF
+
+- [puppeteer](https://pptr.dev/)
 
 ## Troubleshooting
 
