@@ -5,19 +5,8 @@
   </head>
   <body class="m-24">
     <main>
-      <%- include('./partials/introduction'); %> <%-
-      include('./partials/tables'); %>
-      <section class="page">
-        <h1 class="text-2xl">Input Data</h1>
-        <ul>
-          <% data.forEach((governingBodyData) => { %>
-          <h2 class="text-xl"><%= governingBodyData.governingBody %></h2>
-          <% Object.entries(governingBodyData).forEach(([key, value])=> { %>
-          <li><strong class="text-lg"><%= key %>: </strong><%= value %></li>
-          <hr />
-          <% }) }) %>
-        </ul>
-      </section>
+      <%- include('./partials/introduction'); %> 
+      <%- include('./partials/tables'); %>
     </main>
   </body>
 </html>
