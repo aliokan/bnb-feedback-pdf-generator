@@ -29,12 +29,12 @@ export type MunicipalityData = {
     legalResource_hasAttachment_count?: number;
     agent_count?: number;
     legalExpression_correctedBy_count?: number;
-    adminsitrativeUnit_count?: number;
+    administrativeUnit_count?: number;
     legalResource_correctedBy_count?: number;
     
     legalExpression_changes_count?: number;
     meetingActivity_count?: number;
-    agendaItemHandling_count?: number;
+    agendaItemHandeling_count?: number;
     legalResource_changes_count?: number;
     mandatary_count?: number;
     legalExpression_corrects_count?: number;
@@ -43,9 +43,9 @@ export type MunicipalityData = {
     legalExpression_content_count?: number;
 
     vote_count?: number;
-    legalApparance_lang_count?: number;
+    legalExpression_lang_count?: number;
     session_count?: number;
-    legalApparance_title_count?: number;
+    legalExpression_title_count?: number;
     article_count?: number;
     documentComponent_isPartOf_count?: number;
     documentComponent_isPartOf2_count?: number;

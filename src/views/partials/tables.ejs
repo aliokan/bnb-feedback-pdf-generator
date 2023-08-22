@@ -35,17 +35,17 @@
         <%= getRow("BehandelingVanAgendapunt - heeftStemming", governingBodyData.agendaItemHandeling_hasVotes_count, governingBodyData.agendaItemHandeling_count) %> 
         <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
         <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
-        <%= getRow("Bestuurseenheid - naam", governingBodyData.administration_name_count, governingBodyData.administration_count) %>
-        <%= getRow("Bestuursorgaan - naam", governingBodyData.administrationBody_name_count, governingBodyData.administrationBody_count) %>
-        <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalForm_content_count, governingBodyData.legalForm_count) %>
-        <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalForm_title_count, governingBodyData.legalForm_count) %>
-        <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasVoter_count, governingBodyData.vote_count) %>
+        <%= getRow("Bestuurseenheid - naam", governingBodyData.administrativeUnit_name_count, governingBodyData.administrativeUnit_count) %>
+        <%= getRow("Bestuursorgaan - naam", governingBodyData.governingBody_name_count, governingBodyData.governingBody_count) %>
+        <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalExpression_content_count, governingBodyData.legalExpression_count) %>
+        <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalExpression_title_count, governingBodyData.legalExpression_count) %>
+        <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasPresents_count, governingBodyData.vote_count) %>
         <%= getRow("Stemming - heeftOnthouder", governingBodyData.vote_hasAbstainer_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasNegativeVote_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - heeftVoorstander", governingBodyData.vote_hasPositiveVote_count, governingBodyData.vote_count) %>
-        <%= getRow("Zitting - geplandeStart", governingBodyData.meeting_plannedStart_count, governingBodyData.meeting_count) %>
-        <%= getRow("Zitting - heeftAanwezigeBijStart", governingBodyData.meeting_hasPresentAtStart_count, governingBodyData.meeting_count) %>
-        <%= getRow("Zitting - eind", governingBodyData.meeting_end_count, governingBodyData.meeting_count) %>
+        <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count) %>
+        <%= getRow("Stemming - heeftVoorstander", governingBodyData.vote_hasProponent_count, governingBodyData.vote_count) %>
+        <%= getRow("Zitting - geplandeStart", governingBodyData.session_plannedStart_count, governingBodyData.session_count) %>
+        <%= getRow("Zitting - heeftAanwezigeBijStart", governingBodyData.session_attendeesAtStart_count, governingBodyData.session_count) %>
+        <%= getRow("Zitting - eind", governingBodyData.session_endedAt_count, governingBodyData.session_count) %>
     </tbody>
     </table>
 </section>
