@@ -17,7 +17,7 @@
 
 <% data.forEach((governingBodyData) => { %>
 <section class="page">
-    <table class="table-auto border-collapse text-left mx-auto">
+    <table class="table-auto border-separate text-left mx-auto">
     <caption class="caption-top text-xl border-2 border-black mb-4">
         <%= governingBodyData.governingBody %>
     </caption>
@@ -37,8 +37,9 @@
         <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
         <%= getRow("Bestuurseenheid - naam", governingBodyData.administrativeUnit_name_count, governingBodyData.administrativeUnit_count) %>
         <%= getRow("Bestuursorgaan - naam", governingBodyData.governingBody_name_count, governingBodyData.governingBody_count) %>
-        <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalExpression_content_count, governingBodyData.legalExpression_count) %>
-        <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalExpression_title_count, governingBodyData.legalExpression_count) %>
+        <%# legalExpression_count doesn't exist, use available Besluit (LegaleVerschijningsvorm subclass) count %>
+        <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalExpression_content_count, governingBodyData.resolution_count) %>
+        <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalExpression_title_count, governingBodyData.resolution_count) %>
         <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasPresents_count, governingBodyData.vote_count) %>
         <%= getRow("Stemming - heeftOnthouder", governingBodyData.vote_hasAbstainer_count, governingBodyData.vote_count) %>
         <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count) %>
