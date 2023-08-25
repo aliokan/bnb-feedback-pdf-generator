@@ -35,6 +35,7 @@ const generatePDF = async (municipality: string, page: Page, exportPath: string)
 const main = async() => {
     const browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
+    await page.setCacheEnabled(false);
     console.log(dataPath)
     const municipalities = await getMunicipalityList(dataPath);
     console.log(municipalities);
