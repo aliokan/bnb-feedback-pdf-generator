@@ -63,12 +63,18 @@ Required columns:
 - `Besluit (Niveau 1)`
 - `Besluit - beschrijving (Niveau 1)`
 - `Besluit - publicatiedatum (Bonusniveau)`
+- `Besluit - inhoud (Bonusniveau)`
+- `Besluit - titel (Bonusniveau)`
 - `Bestuurseenheid`
 - `Bestuurseenheid - naam (Bonusniveau)`
 - `Bestuursorgaan (Bonusniveau)`
 - `Bestuursorgaan - naam (Bonusniveau)`
-- `LegaleVerschijningsvorm - inhoud (Bonusniveau)`
-- `LegaleVerschijningsvorm - titel (Bonusniveau)`
+- `Stemming - geheim (Niveau 1)`
+- `Stemming - gevolg (Niveau 3)`
+- `Stemming - onderwerp (Niveau 1)`
+- `Stemming - aantalOnthouders (Niveau 1)`
+- `Stemming - aantalTegenstanders (Niveau 1)`
+- `Stemming - aantalVoorstanders (Niveau 1)`
 - `Stemming - heeftaanwezige (Niveau 1)`
 - `Stemming - heeftOnthouder (Niveau 1)`
 - `Stemming - heeftTegenstander (Niveau 1)`
