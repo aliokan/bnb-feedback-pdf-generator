@@ -101,7 +101,7 @@ export type Row = {
   "Stemming - aantalTegenstanders (Niveau 1)"?: string;
   "Stemming - aantalVoorstanders"?: string;
   "Stemming - geheim (Niveau 1)"?: string;
-  
+
   "Stemming - gevolg (Niveau 3)"?: string;
   "Stemming - onderwerp (Niveau 1)"?: string;
   "Artikel - realiseert"?: string;
@@ -112,4 +112,8 @@ export type Row = {
   "Besluit - citeeropschrift (Niveau 3)"?: string;
   "Besluit - motivering (Niveau 3)"?: string;
   "Besluit - publicatiedatum (Bonusniveau)"?: string;
+
+  "Besluit - inhoud (Bonusniveau)"?: string;
+  "Besluit - taal (Bonusniveau)"?: string;
+  "Besluit - titel (Bonusniveau)"?: string;
 };

@@ -34,13 +34,12 @@
                 <%= getRow("Agendapunt - titel", governingBodyData.agendaItem_title_count, governingBodyData.agendaItem_count) %>
                 <%= getRow("BehandelingVanAgendapunt - heeftOnderwerp", governingBodyData.agendaItemHandeling_hasSubject_count, governingBodyData.agendaItemHandeling_count) %>
                 <%= getRow("BehandelingVanAgendapunt - heeftStemming", governingBodyData.agendaItemHandeling_hasVotes_count, governingBodyData.agendaItemHandeling_count) %> 
-                <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
+                <%= getRow("Besluit - titel", governingBodyData.resolution_title_count, governingBodyData.resolution_count) %>
                 <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
+                <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
+                <%= getRow("Besluit - inhoud", governingBodyData.resolution_content_count, governingBodyData.resolution_count) %>
                 <%= getRow("Bestuurseenheid - naam", governingBodyData.administrativeUnit_name_count, governingBodyData.administrativeUnit_count) %>
                 <%= getRow("Bestuursorgaan - naam", governingBodyData.governingBody_name_count, governingBodyData.governingBody_count) %>
-                <%# legalExpression_count doesn't exist, use available Besluit (LegaleVerschijningsvorm subclass) count %>
-                <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalExpression_content_count, governingBodyData.resolution_count) %>
-                <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalExpression_title_count, governingBodyData.resolution_count) %>
                 <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count) %>
                 <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count) %>
                 <%= getRow("Stemming - onderwerp", governingBodyData.vote_subject_count, governingBodyData.vote_count) %>
