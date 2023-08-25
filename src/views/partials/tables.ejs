@@ -40,6 +40,12 @@
         <%# legalExpression_count doesn't exist, use available Besluit (LegaleVerschijningsvorm subclass) count %>
         <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalExpression_content_count, governingBodyData.resolution_count) %>
         <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalExpression_title_count, governingBodyData.resolution_count) %>
+        <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count) %>
+        <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count) %>
+        <%= getRow("Stemming - onderwerp", governingBodyData.vote_subject_count, governingBodyData.vote_count) %>
+        <%= getRow("Stemming - aantalOnthouders", governingBodyData.vote_numberOfAbstentions_count, governingBodyData.vote_count) %>
+        <%= getRow("Stemming - aantalTegenstanders", governingBodyData.vote_numberOfOpponents_count, governingBodyData.vote_count) %>
+        <%= getRow("Stemming - aantalVoorstanders", governingBodyData.vote_numberOfProponents_count, governingBodyData.vote_count) %>
         <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasPresents_count, governingBodyData.vote_count) %>
         <%= getRow("Stemming - heeftOnthouder", governingBodyData.vote_hasAbstainer_count, governingBodyData.vote_count) %>
         <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count) %>
