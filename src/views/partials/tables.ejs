@@ -7,53 +7,55 @@
     <% const formattedTotal = total || 0 %>
     <% const percent = getPercentage(formattedValue, formattedTotal) %>
     <tr class="odd:bg-white even:bg-stone-100">
-        <td class="p-2"><%= label %></td>
-        <td class="<%= getColor(percent) %> p-2">
+        <td class="px-2"><%= label %></td>
+        <td class="<%= getColor(percent) %> px-2">
             <%= percent > 0 ? `${percent} %` : '' %>
         </td>
-        <td class="p-2"><%= formattedValue %>/<%= formattedTotal %></td>
+        <td class="px-2"><%= formattedValue %>/<%= formattedTotal %></td>
     </tr>
 <% } %>
 
-<% data.forEach((governingBodyData) => { %>
-<section class="page">
-    <table class="table-auto border-separate text-left mx-auto">
-    <caption class="caption-top text-xl border-2 border-black mb-4">
-        <%= governingBodyData.governingBody %>
-    </caption>
-    <thead>
-        <tr>
-        <th class="px-2">Attribuut</th>
-        <th class="px-2">Indicator</th>
-        <th>Nummer</th>
-        </tr>
-    </thead>
-    <tbody>
-        <%= getRow("Agendapunt - beschrijving", governingBodyData.agendaItem_description_count, governingBodyData.agendaItem_count) %>
-        <%= getRow("Agendapunt - titel", governingBodyData.agendaItem_title_count, governingBodyData.agendaItem_count) %>
-        <%= getRow("BehandelingVanAgendapunt - heeftOnderwerp", governingBodyData.agendaItemHandeling_hasSubject_count, governingBodyData.agendaItemHandeling_count) %>
-        <%= getRow("BehandelingVanAgendapunt - heeftStemming", governingBodyData.agendaItemHandeling_hasVotes_count, governingBodyData.agendaItemHandeling_count) %> 
-        <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
-        <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
-        <%= getRow("Bestuurseenheid - naam", governingBodyData.administrativeUnit_name_count, governingBodyData.administrativeUnit_count) %>
-        <%= getRow("Bestuursorgaan - naam", governingBodyData.governingBody_name_count, governingBodyData.governingBody_count) %>
-        <%# legalExpression_count doesn't exist, use available Besluit (LegaleVerschijningsvorm subclass) count %>
-        <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalExpression_content_count, governingBodyData.resolution_count) %>
-        <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalExpression_title_count, governingBodyData.resolution_count) %>
-        <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - onderwerp", governingBodyData.vote_subject_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - aantalOnthouders", governingBodyData.vote_numberOfAbstentions_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - aantalTegenstanders", governingBodyData.vote_numberOfOpponents_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - aantalVoorstanders", governingBodyData.vote_numberOfProponents_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasPresents_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - heeftOnthouder", governingBodyData.vote_hasAbstainer_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count) %>
-        <%= getRow("Stemming - heeftVoorstander", governingBodyData.vote_hasProponent_count, governingBodyData.vote_count) %>
-        <%= getRow("Zitting - geplandeStart", governingBodyData.session_plannedStart_count, governingBodyData.session_count) %>
-        <%= getRow("Zitting - heeftAanwezigeBijStart", governingBodyData.session_attendeesAtStart_count, governingBodyData.session_count) %>
-        <%= getRow("Zitting - eind", governingBodyData.session_endedAt_count, governingBodyData.session_count) %>
-    </tbody>
-    </table>
+<section class="flex gap-4 print:block">
+    <% data.forEach((governingBodyData) => { %>
+        <section class="page c-table">
+            <table class="table-auto border-separate text-left text-xs mx-auto">
+            <caption class="text-sm caption-top border-2 border-black mb-4">
+                <%= governingBodyData.governingBody %>
+            </caption>
+            <thead>
+                <tr>
+                    <th class="px-2">Attribuut</th>
+                    <th class="px-2">Indicator</th>
+                    <th>Nummer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%= getRow("Agendapunt - beschrijving", governingBodyData.agendaItem_description_count, governingBodyData.agendaItem_count) %>
+                <%= getRow("Agendapunt - titel", governingBodyData.agendaItem_title_count, governingBodyData.agendaItem_count) %>
+                <%= getRow("BehandelingVanAgendapunt - heeftOnderwerp", governingBodyData.agendaItemHandeling_hasSubject_count, governingBodyData.agendaItemHandeling_count) %>
+                <%= getRow("BehandelingVanAgendapunt - heeftStemming", governingBodyData.agendaItemHandeling_hasVotes_count, governingBodyData.agendaItemHandeling_count) %> 
+                <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
+                <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
+                <%= getRow("Bestuurseenheid - naam", governingBodyData.administrativeUnit_name_count, governingBodyData.administrativeUnit_count) %>
+                <%= getRow("Bestuursorgaan - naam", governingBodyData.governingBody_name_count, governingBodyData.governingBody_count) %>
+                <%# legalExpression_count doesn't exist, use available Besluit (LegaleVerschijningsvorm subclass) count %>
+                <%= getRow("LegaleVerschijningsvorm - inhoud", governingBodyData.legalExpression_content_count, governingBodyData.resolution_count) %>
+                <%= getRow("LegaleVerschijningsvorm - titel", governingBodyData.legalExpression_title_count, governingBodyData.resolution_count) %>
+                <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - onderwerp", governingBodyData.vote_subject_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - aantalOnthouders", governingBodyData.vote_numberOfAbstentions_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - aantalTegenstanders", governingBodyData.vote_numberOfOpponents_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - aantalVoorstanders", governingBodyData.vote_numberOfProponents_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasPresents_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - heeftOnthouder", governingBodyData.vote_hasAbstainer_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count) %>
+                <%= getRow("Stemming - heeftVoorstander", governingBodyData.vote_hasProponent_count, governingBodyData.vote_count) %>
+                <%= getRow("Zitting - geplandeStart", governingBodyData.session_plannedStart_count, governingBodyData.session_count) %>
+                <%= getRow("Zitting - heeftAanwezigeBijStart", governingBodyData.session_attendeesAtStart_count, governingBodyData.session_count) %>
+                <%= getRow("Zitting - eind", governingBodyData.session_endedAt_count, governingBodyData.session_count) %>
+            </tbody>
+            </table>
+        </section>
+    <% }) %>
 </section>
-<% }) %>
