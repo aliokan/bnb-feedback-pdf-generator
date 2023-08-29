@@ -1,5 +1,6 @@
 node_modules
-export/*.pdf
+public
+export/*
 *.xlsx
 *.zip
 .~*
