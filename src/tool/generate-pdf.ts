@@ -1,6 +1,7 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { env } from "node:process";
 import puppeteer, { Page } from "puppeteer";
+import PDFMerger from "pdf-merger-js";
 import { MunicipalityData } from "../type/formattedType";
 
 const dataPath = env.DATA_PATH || "./data.json";
@@ -23,6 +24,26 @@ const getMunicipalityList = async (
   }
 };
 
+const getPDF = async (
+  page: Page,
+  url: string,
+  municipality: string,
+  landscape: boolean = false
+): Promise<Buffer> => {
+  await page.goto(url, {
+    waitUntil: "networkidle0",
+  });
+  const pdf = await page.pdf({
+    format: "A4",
+    landscape,
+    displayHeaderFooter: true,
+    headerTemplate: "<div></div>",
+    footerTemplate: `<div style="display:flex; padding:0 10px; font-size:6pt !important; width:100%">${municipality}</div>`,
+  });
+
+  return pdf;
+};
+
 const generatePDF = async (
   municipality: string,
   page: Page,
@@ -31,17 +52,24 @@ const generatePDF = async (
   try {
     console.log(`Generating PDF for ${municipality}`);
 
-    await page.goto(`http://localhost:3000/${municipality}`, {
-      waitUntil: "networkidle0",
-    });
-    const pdf = await page.pdf({
-      format: "A4",
-      displayHeaderFooter: true,
-      headerTemplate: "<div></div>",
-      footerTemplate: `<div style="display:flex; padding:0 10px; font-size:6pt !important; width:100%"><div>${municipality}</div><div style="margin-left: auto"><span class="pageNumber"></span>/<span class="totalPages"></span></div>`,
-    });
+    const pdf = new PDFMerger();
+    const intro = await getPDF(
+      page,
+      `http://localhost:3000/${municipality}/introduction`,
+      municipality,
+      false
+    );
+    const tables = await getPDF(
+      page,
+      `http://localhost:3000/${municipality}/tables`,
+      municipality,
+      true
+    );
 
-    await writeFile(`${exportPath}/${municipality}.pdf`, pdf);
+    await pdf.add(intro);
+    await pdf.add(tables);
+
+    await pdf.save(`${exportPath}/${municipality}.pdf`);
   } catch (error) {
     console.error("PDF Generation error:", error);
   }
