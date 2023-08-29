@@ -34,7 +34,12 @@ const generatePDF = async (
     await page.goto(`http://localhost:3000/${municipality}`, {
       waitUntil: "networkidle0",
     });
-    const pdf = await page.pdf({ format: "A4" });
+    const pdf = await page.pdf({
+      format: "A4",
+      displayHeaderFooter: true,
+      headerTemplate: "<div></div>",
+      footerTemplate: `<div style="display:flex; padding:0 10px; font-size:6pt !important; width:100%"><div>${municipality}</div><div style="margin-left: auto"><span class="pageNumber"></span>/<span class="totalPages"></span></div>`,
+    });
 
     await writeFile(`${exportPath}/${municipality}.pdf`, pdf);
   } catch (error) {
