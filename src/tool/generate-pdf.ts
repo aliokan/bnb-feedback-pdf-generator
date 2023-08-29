@@ -37,8 +37,8 @@ const getPDF = async (
     format: "A4",
     landscape,
     displayHeaderFooter: true,
-    headerTemplate: "<div></div>",
-    footerTemplate: `<div style="display:flex; padding:0 10px; font-size:6pt !important; width:100%">${municipality}</div>`,
+    headerTemplate: `<div style="text-align: end; margin:0 12mm; font-size:6pt !important; width:100%">${municipality}</div>`,
+    footerTemplate: "<div></div>",
   });
 
   return pdf;

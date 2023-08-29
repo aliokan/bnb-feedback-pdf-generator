@@ -1,6 +1,8 @@
 <% const getPercentage = (value, total) => Math.round(value / total * 100) || 0; %> 
 
-<% const getColor = (percentage, required) => percentage > 89 ? "bg-green-600" : percentage > 49 ? "bg-yellow-400" : "bg-red-600" %> 
+<% const getDescription = (label) => attributeDescriptions.filter(({name}) => name === label)?.pop()?.description || ''; %> 
+
+<% const getColor = (percentage, required) => percentage > 90 ? "bg-green-600" : percentage > 49 ? "bg-yellow-400" : "bg-red-600" %> 
 
 <% const getRow = (label, value, total) => { %> 
     <% const formattedValue = value || 0 %>
@@ -12,6 +14,7 @@
             <%= percent > 0 ? `${percent} %` : '' %>
         </td>
         <td class="px-2"><%= formattedValue %>/<%= formattedTotal %></td>
+        <td class="px-2"><%= getDescription(label) %></td>
     </tr>
 <% } %>
 
@@ -26,7 +29,8 @@
                 <tr>
                     <th class="px-2">Attribuut</th>
                     <th class="px-2">Indicator</th>
-                    <th>Nummer</th>
+                    <th class="px-2">Nummer</th>
+                    <th>Beschrijving attribuut</th>
                 </tr>
             </thead>
             <tbody>

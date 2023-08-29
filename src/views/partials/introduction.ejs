@@ -1,5 +1,5 @@
 <section class="page">
-  <h1 class="text-2xl text-center border-2 border-black mb-8">
+  <h1 class="text-2xl text-center border-2 border-black">
     FEEDBACK GELINKT PUBLICEREN EN MELDEN
   </h1>
 
@@ -7,7 +7,7 @@
     <h2 class="bg-stone-500 text-stone-50 text-center">
       Gemeente <%= municipality %>
     </h2>
-    <section class="text-sm ml-20 my-4 pl-2">
+    <section class="text-sm ml-10 my-4 pl-2">
       <p>
         ABB ging na in hoeverre jouw bestuur voldoet aan de gelinkte
         publicatieplicht. ABB heeft hiervoor in de maand juli en augustus
@@ -19,138 +19,44 @@
     </section>
   </section>
 
-  <section class="bg-stone-100">
-    <h2 class="bg-stone-300 text-stone-950 text-center">Methodologie</h2>
-    <section class="text-sm ml-20">
-      <h3 class="text-lg">Verzamelen van data</h3>
-      <section class="bg-white py-4 pl-2">
-        <p class="pb-4">ABB heeft voor dit onderzoek gekeken naar:</p>
-
-        <p>
-          Op de volgende pagina's kan u respectievelijk het rapport voor de
-          gemeenteraad, raad voor maatschappelijk welzijn, college van
-          burgemeester en schepenen en vast bureau terug vinden. Hieronder kan u
-          meer info vinden over de kolomeigenschappen "attribuut" en "score"
-        </p>
-      </section>
-      <h3 class="text-lg">Attribuut</h3>
-      <section class="bg-white py-4 pl-2">
-        <p>
-          Een gestandaardiseerde manier waarop we elementen uit de gelinkte
-          besluiten, agenda's en notulen weergeven. Om duidelijk te maken wat we
-          hiermee bedoelen geven we hieronder een overzicht van de verschillende
-          attributen met uitleg:
-        </p>
-      </section>
-      <section class="bg-white">
-        <table
-          class="border-separate border-spacing-0.5 text-left bg-stone-300 w-full"
-        >
-          <thead class="text-stone-950">
-            <tr>
-              <th class="px-2">Attribuut</th>
-              <th class="px-2">Uitleg attribuut</th>
-            </tr>
-          </thead>
-          <tbody class="text-sm bg-white">
-            <% attributeDescriptions.forEach(({name, description}) => { %>
-            <tr>
-              <td class="align-top whitespace-nowrap px-2"><%= name %></td>
-              <td class="px-2"><%= description %></td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      </section>
-      <h3 class="text-lg">Indicator</h3>
-      <section class="bg-white pt-4">
-        <p class="pl-2 py-4">
-          De screening is gebaseerd op de gelinkt gepubliceerde documenten die
-          automatisch van de webtoepassing afgehaald konden worden. Aan de hand
-          van de indicator kan je per attribuut inschatten of je gemeente in
-          orde is of niet. We werken met onderstaande indicatoren:
-        </p>
-
-        <table
-          class="text-sm border-separate border-spacing-x-2 text-left bg-stone-300 w-full"
-        >
-          <thead class="text-stone-950">
-            <tr>
-              <th class="w-24">Indicator</th>
-              <th>Aanwezigheid documenten / meldingen</th>
-            </tr>
-          </thead>
-        </table>
-        <table class="table-auto border-separate border-spacing-2 text-left">
-          <tbody>
-            <tr>
-              <td class="w-24 h-12 bg-red-600"></td>
-              <td class="align-top">
-                Er zijn geen documenten gevonden met dit verplicht in te vullen
-                attribuut.
-              </td>
-            </tr>
-            <tr>
-              <td class="w-24 h-12 bg-green-600"></td>
-              <td class="align-top">
-                Alle gevonden documenten bevatten dit verplicht in te vullen
-                attribuut.
-              </td>
-            </tr>
-            <tr>
-              <td class="w-24 h-12 bg-white"></td>
-              <td class="align-top">
-                Er zijn documenten gevonden met dit optioneel in te vullen
-                attribuut.
-              </td>
-            </tr>
-            <tr>
-              <td class="w-24 h-12 bg-yellow-400"></td>
-              <td class="align-top">
-                Er zijn geen documenten gevonden met dit optioneel in te vullen
-                attribuut.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    </section>
-  </section>
-
-  <section class="bg-stone-100 mt-8 break-words">
-    <div class="w-20 float-left">
-      <svg width="80" height="244">
+  <section class="bg-stone-100 fill-stone-500 mt-8 break-words">
+    <div class="w-10 float-left">
+      <svg width="40" height="272">
         <text
-          x="40"
-          y="122"
-          transform="rotate(-90, 40, 122)"
-          style="text-anchor: middle; font-size: 18px"
+          x="20"
+          y="136"
+          text-anchor="middle"
+          transform="rotate(-90, 20, 136)"
+          style="font-size: 16px;"
         >
           Info
         </text>
       </svg>
     </div>
 
-    <div class="ml-20">
+    <div class="ml-10">
       <h3 class="text-lg">Uitleg aanpak opzoeken publicatie</h3>
-      <section class="bg-white text-sm py-4">
+      <section class="bg-white text-sm pb-4">
         <p class="ml-2">
           Om na te gaan of jouw bestuur voldoet aan de gelinkte
           publicatieplicht, heeft ABB enkel gekeken naar de webtoepassing waarop
           jouw bestuur gelinkte publicaties publiceert. Enkel de documenten die
           gelinkt gepubliceerd zijn en automatisch van de webtoepassing gehaald
-          konden worden, zijn verder bekeken. ABB heeft een inventarisatie
-          gemaakt van de gevonden informatie, een samenvatting kan je hieronder
-          vinden.
+          konden worden, zijn verder bekeken. Het gaat om de agenda's,
+          besluitenlijsten, notulen en uitreksels. ABB heeft een inventarisatie
+          gemaakt van de gevonden informatie, een samenvatting kan je vinden op
+          de volgende pagina's.
         </p>
         <h3 class="text-lg bg-stone-100">Meer informatie</h3>
         <p class="ml-2">
           + Het is belangrijk om bij het publiceren van mogelijk gevoelige
-          (persoons-)gegevens rekening te houden met.
+          (persoons-)gegevens rekening te houden met de daarvoor relevante
+          regelgeving. Alle relevante richtlijnen rond dit onderwerp kan je op
+          de volgende webpagina raadplegen:
           <a
             class="text-blue-600 underline"
-            href="https://lokaalbestuur.vlaanderen.be/faq/werking-bestuur/mogen-persoonsgegevens-bekend-gemaakt-worden-op-de-webtoepassing-van-het-lokaal-bestuur-bijvoorbeeld"
-            >https://lokaalbestuur.vlaanderen.be/faq/werking-bestuur/mogen-persoonsgegevens-bekend-gemaakt-worden-op-de-webtoepassing-van-het-lokaal-bestuur-bijvoorbeeld</a
+            href="https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht#q-4405bb0e-81aa-4d3a-8218-5f692dde4d70"
+            >https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht#q-4405bb0e-81aa-4d3a-8218-5f692dde4d70</a
           >
         </p>
         <p class="ml-2">
@@ -158,11 +64,79 @@
           terugvinden:
           <a
             class="text-blue-600 underline"
-            href="https://lokaalbestuur.vlaanderen.be/sites/default/files/public/thema/werking_bestuur/tabellen_publicatie_melding_update_20220601.pdf"
-            >https://lokaalbestuur.vlaanderen.be/sites/default/files/public/thema/werking_bestuur/tabellen_publicatie_melding_update_20220601.pdf</a
+            href="https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht"
+            >https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht</a
           >
         </p>
       </section>
     </div>
+  </section>
+
+  <section class="bg-stone-100">
+    <h2 class="bg-stone-300 text-stone-950 text-center">Methodologie</h2>
+    <section class="text-sm ml-10">
+      <section class="bg-white pb-4 pl-2">
+        <p>
+          Op de volgende pagina's kan u respectievelijk het rapport voor de
+          gemeenteraad, raad voor maatschappelijk welzijn, college van
+          burgemeester en schepenen, vast bureau en burgemeester terug vinden.
+          Hieronder kan u meer info vinden over de kolomeigenschappen
+          "attribuut", "beschrijving attribuut" & "Indicator".
+        </p>
+      </section>
+      <h3 class="text-lg">Attribuut & beschrijving</h3>
+      <section class="bg-white pb-4 pl-2">
+        <p>
+          Een gestandaardiseerde manier waarop we elementen uit de gelinkte
+          besluiten, agenda's en notulen weergeven. Om duidelijk te maken wat we
+          hiermee bedoelen geven we bij elk attribuut ook een korte beschrijving
+          mee.
+        </p>
+      </section>
+      <h3 class="text-lg">Indicator</h3>
+      <section class="bg-white">
+        <p class="pl-2 pb-4">
+          De screening is gebaseerd op de gelinkt gepubliceerde documenten die
+          automatisch van de webtoepassing afgehaald konden worden. Aan de hand
+          van de indicator kan je per attribuut inschatten of je gemeente in
+          orde is of niet. We werken met onderstaande indicatoren:
+        </p>
+
+        <table
+          class="text-sm text-left bg-stone-300 w-full"
+        >
+          <thead class="text-stone-950">
+            <tr>
+              <th class="w-44 px-2">Indicator</th>
+              <th class="px-2">Aanwezigheid documenten / meldingen</th>
+            </tr>
+          </thead>
+        </table>
+        <table class="table-auto border-separate border-spacing-y-2 text-left">
+          <tbody>
+            <tr>
+              <td class="w-44 h-10 bg-red-600"><span class="px-2">NOK</span></td>
+              <td class="align-top px-2">
+                Minder dan 50% van de gevonden publicaties bevatten dit
+                attribuut.
+              </td>
+            </tr>
+            <tr>
+              <td class="h-10 bg-green-600"><span class="px-2">OK</span></td>
+              <td class="align-top px-2">
+                Meer dan 90% van de gevonden publicaties bevatten dit attribuut.
+              </td>
+            </tr>
+            <tr>
+              <td class="h-10 bg-yellow-400"><span class="px-2">Ruimte voor verbetering</span></td>
+              <td class="align-top px-2">
+                Tussen de 50% en 90% van de gevonden publicaties bevatten dit
+                attribuut.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
   </section>
 </section>
