@@ -51,6 +51,8 @@ const generatePDF = async (
 ): Promise<void> => {
   try {
     console.log(`Generating PDF for ${municipality}`);
+    const municipalityNormalized = municipality.toLowerCase().replace(" ", "-");
+    const publicationDate = new Date().toISOString().slice(0, 16)
 
     const pdf = new PDFMerger();
     const intro = await getPDF(
@@ -69,7 +71,7 @@ const generatePDF = async (
     await pdf.add(intro);
     await pdf.add(tables);
 
-    await pdf.save(`${exportPath}/${municipality}.pdf`);
+    await pdf.save(`${exportPath}/${municipalityNormalized}-${publicationDate}.pdf`);
   } catch (error) {
     console.error("PDF Generation error:", error);
   }
