@@ -1,6 +1,7 @@
 node_modules
 export/*.pdf
 *.xlsx
+*.zip
 .~*
 data.json
 yarn-error.log
