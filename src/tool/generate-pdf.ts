@@ -1,8 +1,9 @@
-import { readFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { env } from "node:process";
 import puppeteer, { Page } from "puppeteer";
 import PDFMerger from "pdf-merger-js";
 import { MunicipalityData } from "../type/formattedType";
+import path from "node:path";
 
 const dataPath = env.DATA_PATH || "./data.json";
 const exportPath = env.EXPORT_PATH || "./export";
@@ -51,10 +52,7 @@ const generatePDF = async (
 ): Promise<void> => {
   try {
     console.log(`Generating PDF for ${municipality}`);
-    const municipalityNormalized = municipality.toLowerCase().replace(" ", "-");
-    const publicationDate = new Date().toISOString().slice(0, 16)
 
-    const pdf = new PDFMerger();
     const intro = await getPDF(
       page,
       `http://localhost:3000/municipalities/${municipality}/introduction`,
@@ -68,10 +66,19 @@ const generatePDF = async (
       true
     );
 
-    await pdf.add(intro);
-    await pdf.add(tables);
+    const pdfMerger = new PDFMerger();
+    await pdfMerger.add(intro);
+    await pdfMerger.add(tables);
+    const pdf = await pdfMerger.saveAsBuffer();
 
-    await pdf.save(`${exportPath}/${municipalityNormalized}-${publicationDate}.pdf`);
+
+    const municipalityNormalized = municipality.toLowerCase().replace(" ", "-");
+    const publicationDate = new Date().toISOString().slice(0, 10);
+    const directory = `${exportPath}/municipalities/${municipalityNormalized}`;
+    const fileName = `${municipalityNormalized}-${publicationDate}.pdf`;
+    
+    await mkdir(directory, { recursive: true });
+    await writeFile(path.join(directory, fileName), pdf);
   } catch (error) {
     console.error("PDF Generation error:", error);
   }
