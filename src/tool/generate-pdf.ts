@@ -57,13 +57,13 @@ const generatePDF = async (
     const pdf = new PDFMerger();
     const intro = await getPDF(
       page,
-      `http://localhost:3000/${municipality}/introduction`,
+      `http://localhost:3000/municipalities/${municipality}/introduction`,
       municipality,
       false
     );
     const tables = await getPDF(
       page,
-      `http://localhost:3000/${municipality}/tables`,
+      `http://localhost:3000/municipalities/${municipality}/tables`,
       municipality,
       true
     );

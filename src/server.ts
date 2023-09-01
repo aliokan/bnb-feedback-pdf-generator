@@ -35,12 +35,12 @@ app.use(
   )
 );
 
-app.get("/", (req, res) => {
+app.get("/municipalities", (req, res) => {
   const municipalities = [
     ...new Set(data.map(({ municipality }) => municipality)),
   ].sort();
 
-  res.render("index", {
+  res.render("municipalities/index", {
     title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
     municipalities,
   });
@@ -67,16 +67,16 @@ const renderMunicipality = (
   }
 };
 
-app.get("/:municipality", (req, res) => {
-  renderMunicipality(res, "municipality-all", req.params.municipality);
+app.get("/municipalities/:municipality", (req, res) => {
+  renderMunicipality(res, "municipalities/municipality", req.params.municipality);
 });
 
-app.get("/:municipality/introduction", (req, res) => {
-  renderMunicipality(res, "municipality-introduction", req.params.municipality);
+app.get("/municipalities/:municipality/introduction", (req, res) => {
+  renderMunicipality(res, "municipalities/introduction", req.params.municipality);
 });
 
-app.get("/:municipality/tables", (req, res) => {
-  renderMunicipality(res, "municipality-tables", req.params.municipality);
+app.get("/municipalities/:municipality/tables", (req, res) => {
+  renderMunicipality(res, "municipalities/tables", req.params.municipality);
 });
 
 app.listen(3000, () => {
