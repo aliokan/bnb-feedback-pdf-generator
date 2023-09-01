@@ -11,7 +11,7 @@
         "css:build": "postcss ./src/styles/index.css -o public/styles/style.css",
         "css:watch": "nodemon -e ejs,css --exec postcss ./src/styles/index.css -o public/styles/style.css",
         "generate-pdf": "ts-node ./src/tool/generate-pdf.ts",
-        "clear-export": "rm -rf export/*.pdf"
+        "clear-export": "rm -rf export/**/*"
     },
     "dependencies": {
         "@appuniversum/ember-appuniversum": "^2.11.0",
