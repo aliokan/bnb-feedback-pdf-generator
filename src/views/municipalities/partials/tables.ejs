@@ -2,47 +2,73 @@
 
 <% const getDescription = (label) => attributeDescriptions.filter(({name}) => name === label)?.pop()?.description || ''; %> 
 
-<% const getColor = (percentage, required) => percentage > 90 ? "bg-green-600" : percentage > 49 ? "bg-yellow-400" : "bg-red-600" %> 
+<% const getColor = (percentage, required) => percentage > 99 && "bg-green-600" %> 
 
 <% const getRow = (label, value, total) => { %> 
     <% const formattedValue = value || 0 %>
     <% const formattedTotal = total || 0 %>
     <% const percent = getPercentage(formattedValue, formattedTotal) %>
     <tr class="odd:bg-white even:bg-stone-100">
-        <td class="px-2"><%= label %></td>
-        <td class="<%= getColor(percent) %> px-2">
+        <td class="w-60 px-2"><%= label %></td>
+        <td class="w-10 px-2 <%= getColor(percent) %>">
             <%= percent > 0 ? `${percent} %` : '' %>
         </td>
-        <td class="px-2"><%= formattedValue %>/<%= formattedTotal %></td>
-        <td class="px-2"><%= getDescription(label) %></td>
+        <td class="w-14 px-2"><%= formattedValue %>/<%= formattedTotal %></td>
+        <td class="w-96 px-2"><%= getDescription(label) %></td>
     </tr>
 <% } %>
 
 <section class="flex gap-4 print:block">
     <% data.forEach((governingBodyData) => { %>
         <section class="page c-table">
-            <table class="table-auto border-separate text-left text-xs mx-auto">
-                <caption class="text-sm caption-top border-2 border-black mb-4">
-                    <%= governingBodyData.governingBody %>
+            <h2 class="text-2xl text-center border-2 border-black">
+                <%= governingBodyData.governingBody %>
+            </h2>
+            <!-- <table class="table-fixed border-separate text-left text-xs">
+                
+            </table> -->
+            <table class="table-auto border-separate text-left text-xs mb-4">
+                <caption class="text-sm font-medium caption-top text-left px-2 pt-2">
+                    Welke informatie mag er zeker niet ontbreken in je publicaties / is onontbeerlijk in je publicaties
                 </caption>
                 <thead>
                     <tr>
-                        <th class="px-2">Attribuut</th>
-                        <th class="px-2">Indicator</th>
-                        <th class="px-2">Nummer</th>
-                        <th>Beschrijving attribuut</th>
+                        <th class="w-60 px-2">Attribuut</th>
+                        <th class="w-10 px-2">Indicator</th>
+                        <th class="w-14 px-2">Nummer</th>
+                        <th class="w-96 px-2">Beschrijving attribuut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%= getRow("Zitting - geplandeStart", governingBodyData.session_plannedStart_count, governingBodyData.session_count) %>
+                    <%= getRow("Zitting - start", governingBodyData.session_startedAt_count, governingBodyData.session_count) %>
+                    <%= getRow("Zitting - eind", governingBodyData.session_endedAt_count, governingBodyData.session_count) %>
+                    <%= getRow("Zitting - heeftAanwezigeBijStart", governingBodyData.session_attendeesAtStart_count, governingBodyData.session_count) %>
+                    <%= getRow("Agendapunt - titel", governingBodyData.agendaItem_title_count, governingBodyData.agendaItem_count) %>
+                    <%= getRow("Besluit - titel", governingBodyData.resolution_title_count, governingBodyData.resolution_count) %>
+                    <%= getRow("Besluit - inhoud", governingBodyData.resolution_content_count, governingBodyData.resolution_count) %>
+                    <!-- Artikel - titel -->
+                    <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
+                    <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
+                    <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count) %>
+                    <%= getRow("Stemming - onderwerp", governingBodyData.vote_subject_count, governingBodyData.vote_count) %>
+                    <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count) %>
+                </tbody>
+            </table>
+            <table class="table-auto border-separate text-left text-xs">
+                <caption class="text-sm font-medium caption-top text-left px-2">
+                    Welke informatie is wenselijk in je publicaties
+                </caption>
+                <thead>
+                    <tr>
+                        <th class="w-60 px-2">Attribuut</th>
+                        <th class="w-14 px-2">Indicator</th>
+                        <th class="w-14 px-2">Nummer</th>
+                        <th class="w-96 px-2">Beschrijving attribuut</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%= getRow("Agendapunt - beschrijving", governingBodyData.agendaItem_description_count, governingBodyData.agendaItem_count) %>
-                    <%= getRow("Agendapunt - titel", governingBodyData.agendaItem_title_count, governingBodyData.agendaItem_count) %>
-                    <%= getRow("Besluit - titel", governingBodyData.resolution_title_count, governingBodyData.resolution_count) %>
-                    <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
-                    <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
-                    <%= getRow("Besluit - inhoud", governingBodyData.resolution_content_count, governingBodyData.resolution_count) %>
-                    <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count) %>
-                    <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count) %>
-                    <%= getRow("Stemming - onderwerp", governingBodyData.vote_subject_count, governingBodyData.vote_count) %>
                     <%= getRow("Stemming - aantalOnthouders", governingBodyData.vote_numberOfAbstentions_count, governingBodyData.vote_count) %>
                     <%= getRow("Stemming - aantalTegenstanders", governingBodyData.vote_numberOfOpponents_count, governingBodyData.vote_count) %>
                     <%= getRow("Stemming - aantalVoorstanders", governingBodyData.vote_numberOfProponents_count, governingBodyData.vote_count) %>
@@ -50,9 +76,6 @@
                     <%= getRow("Stemming - heeftOnthouder", governingBodyData.vote_hasAbstainer_count, governingBodyData.vote_count) %>
                     <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count) %>
                     <%= getRow("Stemming - heeftVoorstander", governingBodyData.vote_hasProponent_count, governingBodyData.vote_count) %>
-                    <%= getRow("Zitting - geplandeStart", governingBodyData.session_plannedStart_count, governingBodyData.session_count) %>
-                    <%= getRow("Zitting - heeftAanwezigeBijStart", governingBodyData.session_attendeesAtStart_count, governingBodyData.session_count) %>
-                    <%= getRow("Zitting - eind", governingBodyData.session_endedAt_count, governingBodyData.session_count) %>
                 </tbody>
             </table>
         </section>
