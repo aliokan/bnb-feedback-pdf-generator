@@ -69,6 +69,8 @@
                 </thead>
                 <tbody>
                     <%= getRow("Agendapunt - beschrijving", governingBodyData.agendaItem_description_count, governingBodyData.agendaItem_count) %>
+                    <%= getRow("Artikel - nummer", governingBodyData.article_number_count, governingBodyData.article_count) %>
+                    <%= getRow("Artikel - inhoud", governingBodyData.article_content_count, governingBodyData.article_count) %>
                     <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasPresents_count, governingBodyData.vote_count) %>
                     <%= getRow("Stemming - heeftVoorstander", governingBodyData.vote_hasProponent_count, governingBodyData.vote_count) %>
                     <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count) %>
