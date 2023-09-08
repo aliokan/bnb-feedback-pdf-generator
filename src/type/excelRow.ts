@@ -116,4 +116,9 @@ export type Row = {
   "Besluit - inhoud (Bonusniveau)"?: string;
   "Besluit - taal (Bonusniveau)"?: string;
   "Besluit - titel (Bonusniveau)"?: string;
+
+  "Artikel - inhoud (Bonusniveau)"?: string;
+  "Artikel - taal (Bonusniveau)"?: string;
+  "LegaleVerschijningsvorm (Niveau 1)"?: string;
+  "Besluit - citeert"?: string;
 };

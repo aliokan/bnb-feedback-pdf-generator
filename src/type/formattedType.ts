@@ -115,4 +115,9 @@ export type MunicipalityData = {
   resolution_content_count?: number;
   resolution_lang_count?: number;
   resolution_title_count?: number;
+
+  article_content_count?: number;
+  article_lang_count?: number;
+  legalExpression_count?: number;
+  resolution_quotes_count?: number;
 };

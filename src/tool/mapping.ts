@@ -121,4 +121,8 @@ export const mapping: TranslationMap = {
   "Besluit - inhoud (Bonusniveau)": "resolution_content_count",
   "Besluit - taal (Bonusniveau)": "resolution_lang_count",
   "Besluit - titel (Bonusniveau)": "resolution_title_count",
+  "Artikel - inhoud (Bonusniveau)": "article_content_count",
+  "Artikel - taal (Bonusniveau)": "article_lang_count",
+  "LegaleVerschijningsvorm (Niveau 1)": "legalExpression_count",
+  "Besluit - citeert": "resolution_quotes_count"
 };
