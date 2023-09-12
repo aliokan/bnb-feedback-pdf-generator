@@ -20,7 +20,7 @@
 
 <section class="flex gap-4 print:block">
     <% data.forEach((governingBodyData) => { %>
-        <section class="page c-table">
+        <section class="page">
             <h2 class="text-2xl text-center border-2 border-black">
                 <%= governingBodyData.governingBody %>
             </h2>
@@ -47,7 +47,6 @@
                     <%= getRow("Agendapunt - titel", governingBodyData.agendaItem_title_count, governingBodyData.agendaItem_count) %>
                     <%= getRow("Besluit - titel", governingBodyData.resolution_title_count, governingBodyData.resolution_count) %>
                     <%= getRow("Besluit - inhoud", governingBodyData.resolution_content_count, governingBodyData.resolution_count) %>
-                    <!-- Artikel - titel -->
                     <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count) %>
                     <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
                     <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count) %>
@@ -55,8 +54,13 @@
                     <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count) %>
                 </tbody>
             </table>
-            <table class="table-auto border-separate text-left text-xs w-full">
-                <caption class="text-sm font-medium caption-top text-left px-2">
+        </section>
+        <section class="page">
+            <h2 class="text-2xl text-center border-2 border-black">
+                <%= governingBodyData.governingBody %>
+            </h2>
+            <table class="table-auto border-separate text-left text-xs mb-4 w-full">
+                <caption class="text-sm font-medium caption-top text-left px-2 pt-2">
                     Welke informatie is wenselijk in je publicaties
                 </caption>
                 <thead>
