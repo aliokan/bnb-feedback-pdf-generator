@@ -1,6 +1,7 @@
 export type MunicipalityData = {
   municipality?: string;
   governingBody?: string;
+  priority: string;
   url?: string;
   startDate?: string;
   endDate?: string;

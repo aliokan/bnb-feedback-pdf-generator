@@ -2,6 +2,7 @@ import Excel, { CellValue } from "exceljs";
 import { writeFile } from "node:fs/promises";
 import { Row } from "../type/excelRow";
 import { ENKey, NLKey, mapping, TranslationMap } from "./mapping";
+import { MunicipalityData } from "../type/formattedType";
 
 const inputPath = "./input.xlsx";
 const outputPath = "./data.json";
@@ -55,6 +56,21 @@ const containsList = (value: string): boolean => {
   return value.includes("list");
 };
 
+const getPriority = (governingBody: string): string => {
+  const priority = governingBody.includes("gemeenteraad")
+    ? "1"
+    : governingBody.includes("college")
+    ? "2"
+    : governingBody.includes("burgemeesterbesluiten")
+    ? "3"
+    : governingBody.includes("ocmw")
+    ? "4"
+    : governingBody.includes("vast bureau")
+    ? "5"
+    : "6";
+  return priority;
+};
+
 const formatData = (headers: CellValue[], data: Row[]) => {
   try {
     return data.map((row, i) => {
@@ -70,7 +86,9 @@ const formatData = (headers: CellValue[], data: Row[]) => {
           return headers.includes(key);
         })
       );
-      return Object.fromEntries(filtered);
+      const governingBody = translated.find(([key]) => key === "governingBody")?.[1] as string;
+      filtered.push(["priority", getPriority(governingBody)]);
+      return Object.fromEntries(filtered) as MunicipalityData;
     });
   } catch (error) {
     console.error("Format data error:", error);
@@ -78,11 +96,16 @@ const formatData = (headers: CellValue[], data: Row[]) => {
   return [];
 };
 
+const sortData = (a: MunicipalityData, b: MunicipalityData) => {
+      return a.priority > b.priority ? 1 : -1;
+};
+
 const main = async () => {
   const { headers, data } = await extractData(inputPath);
   if (!data) return;
   const formated = formatData(headers, data);
-  const json = JSON.stringify(formated);
+  const sorted = formated.sort(sortData);
+  const json = JSON.stringify(sorted);
   await saveData(outputPath, json);
 };
 
