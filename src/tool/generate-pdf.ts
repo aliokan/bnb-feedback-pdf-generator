@@ -78,7 +78,8 @@ const generatePDF = async (
 
     const municipalityNormalized = municipality.toLowerCase().replace(" ", "-");
     const publicationDate = new Date().toISOString().slice(0, 10);
-    const directory = `${exportPath}/municipalities/${municipalityNormalized}`;
+    const salt = Buffer.from(`salty${municipality}`.split('').reverse().join('')).toString('base64').slice(0, 5).toLowerCase();
+    const directory = `${exportPath}/municipalities/${municipalityNormalized}-${salt}`;
     const fileName = `${municipalityNormalized}-${publicationDate}.pdf`;
 
     await mkdir(directory, { recursive: true });
