@@ -29,7 +29,8 @@ const getPDF = async (
   page: Page,
   url: string,
   municipality: string,
-  landscape: boolean = false
+  landscape: boolean,
+  pagitation: boolean
 ): Promise<Buffer> => {
   await page.goto(url, {
     waitUntil: "networkidle0",
@@ -39,7 +40,9 @@ const getPDF = async (
     landscape,
     displayHeaderFooter: true,
     headerTemplate: `<div style="text-align: end; margin:0 12mm; font-size:6pt !important; width:100%">${municipality}</div>`,
-    footerTemplate: "<div></div>",
+    footerTemplate: pagitation
+      ? `<div style="text-align: end; margin:0 12mm; font-size:6pt !important; width:100%"><span class="pageNumber"></span> / <span class="totalPages"></span></div>`
+      : "<div></div>",
   });
 
   return pdf;
@@ -57,12 +60,14 @@ const generatePDF = async (
       page,
       `http://localhost:3000/municipalities/${municipality}/introduction`,
       municipality,
+      false,
       false
     );
     const tables = await getPDF(
       page,
       `http://localhost:3000/municipalities/${municipality}/tables`,
       municipality,
+      true,
       true
     );
 
@@ -71,12 +76,11 @@ const generatePDF = async (
     await pdfMerger.add(tables);
     const pdf = await pdfMerger.saveAsBuffer();
 
-
     const municipalityNormalized = municipality.toLowerCase().replace(" ", "-");
     const publicationDate = new Date().toISOString().slice(0, 10);
     const directory = `${exportPath}/municipalities/${municipalityNormalized}`;
     const fileName = `${municipalityNormalized}-${publicationDate}.pdf`;
-    
+
     await mkdir(directory, { recursive: true });
     await writeFile(path.join(directory, fileName), pdf);
   } catch (error) {
