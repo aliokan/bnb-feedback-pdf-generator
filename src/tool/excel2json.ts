@@ -25,7 +25,7 @@ const extractData = async (
         (acc, curr, index) => {
           return {
             ...acc,
-            ...(headers[index] && { [headers[index] as string]: curr }),
+            ...(headers[index] && { [headers[index] as string]: curr?.toString().trim() }),
           };
         },
         {} as Row
@@ -61,13 +61,15 @@ const getPriority = (governingBody: string): string => {
     ? "1"
     : governingBody.includes("college")
     ? "2"
-    : governingBody.includes("burgemeesterbesluiten")
+    : governingBody.includes("burgemeester")
     ? "3"
-    : governingBody.includes("ocmw")
-    ? "4"
     : governingBody.includes("vast bureau")
+    ? "4"
+    : governingBody.includes("ocmw")
     ? "5"
-    : "6";
+    : governingBody.includes("agb")
+    ? "6"
+    : "7";
   return priority;
 };
 
@@ -105,6 +107,7 @@ const main = async () => {
   if (!data) return;
   const formated = formatData(headers, data);
   const sorted = formated.sort(sortData);
+  // console.log("governingBodies:", JSON.stringify([...new Set(sorted.map((municipality) => municipality.governingBody))]));
   const json = JSON.stringify(sorted);
   await saveData(outputPath, json);
 };
