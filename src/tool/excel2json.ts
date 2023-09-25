@@ -2,7 +2,7 @@ import Excel, { CellValue } from "exceljs";
 import { writeFile } from "node:fs/promises";
 import { Row } from "../type/excelRow";
 import { ENKey, NLKey, mapping, TranslationMap } from "./mapping";
-import { MunicipalityData } from "../type/formattedType";
+import { MunicipalityData, Vendor } from "../type/formattedType";
 
 const inputPath = "./input.xlsx";
 const outputPath = "./data.json";
@@ -76,6 +76,28 @@ const getPriority = (governingBody: string): string => {
   return priority;
 };
 
+const getVendor = (url: string): Vendor | null => {
+  const vendor = url.includes("cipalschaubroeck.be")
+    ? Vendor.CipalSchaubroeck
+    : url.includes("https://lblod")
+    ? Vendor.Cevi
+    : url.includes("onlinesmartcities.be")
+    ? Vendor.Greenvalley
+    : url.includes("publicatie.gelinkt-notuleren.vlaanderen.be")
+    ? Vendor.GelinktNotuleren
+    : url.includes("https://tobibus")
+    ? Vendor.BCT_Tobania
+    : url.includes("meetingburger.net")
+    ? Vendor.Remmicom
+    : url.includes("powerappsportals.com")
+    ? Vendor.C_clear_LB365_Savaco_Thrives
+    : url.includes("ebesluit.antwerpen.be")
+    ? Vendor.antwerpen
+    : null;
+
+  return vendor;
+};
+
 const formatData = (headers: CellValue[], data: Row[]) => {
   try {
     return data.map((row, i) => {
@@ -91,11 +113,19 @@ const formatData = (headers: CellValue[], data: Row[]) => {
           return headers.includes(key);
         })
       );
+      
       const governingBody = translated.find(
         ([key]) => key === "governingBody"
       )?.[1] as string;
       filtered.push(["priority", getPriority(governingBody)]);
-      return Object.fromEntries(filtered) as MunicipalityData;
+
+      const formatedData = Object.fromEntries(filtered) as MunicipalityData
+      const vendor = getVendor(formatedData.url??'')
+
+      return {
+        ...formatedData,
+        vendor
+      };
     });
   } catch (error) {
     console.error("Format data error:", error);

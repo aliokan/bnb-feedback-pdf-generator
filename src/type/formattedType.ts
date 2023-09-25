@@ -1,5 +1,18 @@
+export enum Vendor {
+  Greenvalley = "Greenvalley",
+  CipalSchaubroeck = "CipalSchaubroeck",
+  Remmicom = "Remmicom",
+  GelinktNotuleren = "Gelinkt Notuleren",
+  Cevi = "Cevi",
+  BCT_Tobania = "BCT / Tobania",
+  C_clear_LB365_Savaco_Thrives = "C-clear / LB365 / Savaco-Thrives",
+  Ibabs = "Ibabs",
+  antwerpen = "antwerpen"
+}
+
 export type MunicipalityData = {
   municipality?: string;
+  vendors?: Vendor;
   governingBody?: string;
   priority: string;
   url?: string;
