@@ -25,7 +25,9 @@ const extractData = async (
         (acc, curr, index) => {
           return {
             ...acc,
-            ...(headers[index] && { [headers[index] as string]: curr?.toString().trim() }),
+            ...(headers[index] && {
+              [headers[index] as string]: curr?.toString().trim(),
+            }),
           };
         },
         {} as Row
@@ -70,6 +72,7 @@ const getPriority = (governingBody: string): string => {
     : governingBody.includes("agb")
     ? "6"
     : "7";
+
   return priority;
 };
 
@@ -88,7 +91,9 @@ const formatData = (headers: CellValue[], data: Row[]) => {
           return headers.includes(key);
         })
       );
-      const governingBody = translated.find(([key]) => key === "governingBody")?.[1] as string;
+      const governingBody = translated.find(
+        ([key]) => key === "governingBody"
+      )?.[1] as string;
       filtered.push(["priority", getPriority(governingBody)]);
       return Object.fromEntries(filtered) as MunicipalityData;
     });
@@ -99,7 +104,7 @@ const formatData = (headers: CellValue[], data: Row[]) => {
 };
 
 const sortData = (a: MunicipalityData, b: MunicipalityData) => {
-      return a.priority > b.priority ? 1 : -1;
+  return a.priority > b.priority ? 1 : -1;
 };
 
 const main = async () => {
