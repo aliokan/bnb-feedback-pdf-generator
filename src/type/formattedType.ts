@@ -11,8 +11,11 @@ export enum Vendor {
 }
 
 export type MunicipalityData = {
+  // generic type for none translated keys
+  [key: string]: string | number | boolean | null | undefined;
+  
   municipality?: string;
-  vendors?: Vendor;
+  vendor?: Vendor;
   governingBody?: string;
   priority: string;
   url?: string;

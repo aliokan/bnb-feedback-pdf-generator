@@ -4,5 +4,5 @@ export/*
 *.xlsx
 *.zip
 .~*
-data.json
+data*.json
 yarn-error.log

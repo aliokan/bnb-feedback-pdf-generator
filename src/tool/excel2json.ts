@@ -5,7 +5,6 @@ import { ENKey, NLKey, mapping, TranslationMap } from "./mapping";
 import { MunicipalityData, Vendor } from "../type/formattedType";
 
 const inputPath = "./input.xlsx";
-const outputPath = "./data.json";
 
 const extractData = async (
   path: string
@@ -76,7 +75,7 @@ const getPriority = (governingBody: string): string => {
   return priority;
 };
 
-const getVendor = (url: string): Vendor | null => {
+const getVendor = (url: string): Vendor | undefined => {
   const vendor = url.includes("cipalschaubroeck.be")
     ? Vendor.CipalSchaubroeck
     : url.includes("https://lblod")
@@ -93,17 +92,29 @@ const getVendor = (url: string): Vendor | null => {
     ? Vendor.C_clear_LB365_Savaco_Thrives
     : url.includes("ebesluit.antwerpen.be")
     ? Vendor.antwerpen
-    : null;
+    : undefined;
 
   return vendor;
 };
 
-const formatData = (headers: CellValue[], data: Row[]) => {
+const typeValue = (
+  value: string
+): string | number | boolean | null | undefined => {
+  if (value === "true") return true;
+  else if (value === "false") return false;
+  else if (value === "null") return null;
+  else if (value === "undefined") return undefined;
+  else if (value === "") return undefined;
+  else if (!isNaN(Number(value))) return Number(value);
+  else return value;
+};
+
+const formatData = (headers: CellValue[], data: Row[]): MunicipalityData[] => {
   try {
     return data.map((row, i) => {
       const entries = Object.entries(row);
       const translated = entries.map(([key, value]) => {
-        return [translateKey(key as NLKey, mapping), value];
+        return [translateKey(key as NLKey, mapping), typeValue(value)];
       });
       const filtered = translated.filter(([key]) => !containsList(String(key)));
       console.log(
@@ -113,18 +124,18 @@ const formatData = (headers: CellValue[], data: Row[]) => {
           return headers.includes(key);
         })
       );
-      
+
       const governingBody = translated.find(
         ([key]) => key === "governingBody"
       )?.[1] as string;
       filtered.push(["priority", getPriority(governingBody)]);
 
-      const formatedData = Object.fromEntries(filtered) as MunicipalityData
-      const vendor = getVendor(formatedData.url??'')
+      const formatedData = Object.fromEntries(filtered) as MunicipalityData;
+      const vendor = getVendor(formatedData.url ?? "");
 
       return {
         ...formatedData,
-        vendor
+        vendor,
       };
     });
   } catch (error) {
@@ -137,14 +148,49 @@ const sortData = (a: MunicipalityData, b: MunicipalityData) => {
   return a.priority > b.priority ? 1 : -1;
 };
 
+function concatValues<T>(value: unknown, accValue: T): T {
+  if (accValue === undefined && typeof value === "number") return value as T;
+  else if (accValue === undefined) return [value] as T;
+  if (typeof accValue === "number" && typeof value === "number") {
+    return (accValue + value) as T;
+  } else if (Array.isArray(accValue)) {
+    return [...accValue, value] as T;
+  } else {
+    throw new Error("Invalid arguments");
+  }
+}
+
+const getVendorsData = (data: MunicipalityData[]) => {
+  return data.reduce((acc, row) => {
+    const vendor = row.vendor;
+    if (!vendor) return acc;
+
+    const accVendor = acc[vendor] ?? {};
+
+    const values = Object.entries(row).map(([key, value]) => {
+      return [
+        key,
+        concatValues(value, accVendor[key as keyof MunicipalityData]),
+      ];
+    });
+
+    return {
+      ...acc,
+      [vendor]: Object.fromEntries(values),
+    };
+  }, {} as { [key in Vendor]: MunicipalityData });
+};
+
 const main = async () => {
   const { headers, data } = await extractData(inputPath);
   if (!data) return;
   const formated = formatData(headers, data);
   const sorted = formated.sort(sortData);
   // console.log("governingBodies:", JSON.stringify([...new Set(sorted.map((municipality) => municipality.governingBody))]));
-  const json = JSON.stringify(sorted);
-  await saveData(outputPath, json);
+  await saveData("./data.json", JSON.stringify(sorted));
+
+  const vendors = getVendorsData(formated);
+  await saveData("./data-vendors.json", JSON.stringify(vendors));
 };
 
 main();
