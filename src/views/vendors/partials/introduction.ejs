@@ -5,101 +5,157 @@
 
   <section class="bg-stone-100">
     <h2 class="bg-stone-500 text-stone-50 text-center">
-      Gemeente <%= municipality %>
+      Leverancier <%= vendor %>
     </h2>
     <section class="text-sm ml-10 my-4 pl-2">
       <p>
-        ABB ging na in hoeverre jouw bestuur voldoet aan de gelinkte
-        publicatieplicht. ABB heeft hiervoor in de maand juli en augustus
-        onderzocht of gelinkte publicaties terug te vinden zijn op webtoepassing
-        van het bestuur voor de periode januari - juni 2023. Dit betekent dat
-        documenten die niet gelinkt gepubliceerd zijn niet verschijnen in de
-        resultaten.
+        ABB wil leveranciers ondersteunen bij het correct implementeren van RDFa
+        in de context van LBLOD en daarmee de herbruikbaarheid en kwaliteit van
+        de linked data vergroten. Om dit doel te bewerkstelligen heeft ABB een
+        aantal technische factoren en indicatoren gecheckt die kunnen helpen bij
+        het detecteren van mogelijke fouten of problemen in de implementatie.
+        Dit overzicht is een hulpmiddel om mogelijke problemen te detecteren
+        zodat we ze samen kunnen aanpakken, het is niet bedoeld als
+        controlemiddel.
       </p>
     </section>
   </section>
 
-  <section class="bg-stone-100 fill-stone-500 mt-8 break-words">
-    <div class="w-10 float-left">
-      <svg width="40" height="272">
-        <text
-          x="20"
-          y="136"
-          text-anchor="middle"
-          transform="rotate(-90, 20, 136)"
-          style="font-size: 16px"
-        >
-          Info
-        </text>
-      </svg>
+  <section class="flex bg-stone-100 fill-stone-500 mt-8 break-words">
+    <div class="w-10 flex-none flex items-center justify-center">
+      <span class="text-6xl text-red-600">!</span>
     </div>
 
-    <div class="ml-10">
-      <h3 class="text-lg">Uitleg aanpak opzoeken publicatie</h3>
-      <section class="bg-white text-sm pb-4">
-        <p class="ml-2">
-          Om na te gaan of jouw bestuur voldoet aan de gelinkte
-          publicatieplicht, heeft ABB enkel gekeken naar de webtoepassing waarop
-          jouw bestuur gelinkte publicaties publiceert. Enkel de documenten die
-          gelinkt gepubliceerd zijn en automatisch van de webtoepassing gehaald
-          konden worden, zijn verder bekeken. Het gaat om de agenda's,
-          besluitenlijsten, notulen en uitreksels. ABB heeft een inventarisatie
-          gemaakt van de gevonden informatie, een samenvatting kan je vinden op
-          de volgende pagina's.
-        </p>
-        <h3 class="text-lg bg-stone-100">Meer informatie</h3>
-        <p class="ml-2">
-          + Het is belangrijk om bij het publiceren van mogelijk gevoelige
-          (persoons-)gegevens rekening te houden met de daarvoor relevante
-          regelgeving. Alle relevante richtlijnen rond dit onderwerp kan je op
-          de volgende webpagina raadplegen:
-          <a
-            class="text-blue-600 underline"
-            href="https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht#q-4405bb0e-81aa-4d3a-8218-5f692dde4d70"
-            >https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht#q-4405bb0e-81aa-4d3a-8218-5f692dde4d70</a
-          >
-        </p>
-        <p class="ml-2">
-          + Alle informatie rond de publicatie- en meldingsplicht kan je hier
-          terugvinden:
-          <a
-            class="text-blue-600 underline"
-            href="https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht"
-            >https://www.vlaanderen.be/lokaal-bestuur/publicatieplicht</a
-          >
-        </p>
-      </section>
-    </div>
+    <section class="bg-white text-sm pb-4">
+      <p class="ml-2">
+        Bij het uitvoeren van testen is vertrokken van een aantal assumpties met
+        betrekking tot de technische implementaties. Het is dus niet zo dat er
+        maar één manier van implementeren is om te voldoen aan de principes van
+        LBLOD. We geven mee welke testen we uitgevoerd hebben zodat u zelf kan
+        inschatten waarom bepaalde testen in minder documenten of minder
+        installaties voorkomen.
+      </p>
+      <p class="ml-2">
+        Een laag aantal teruggevonden documenten kan volstrekt terecht zijn. Dit
+        kan voorkomen bij de controle op aanwezigheid van klassen, eigenschappen
+        en relaties omdat wij ons niet baseren op de kardinaliteiten van de het
+        applicatieprofiel 'Besluit - Publicatie'. We gaan er namelijk vanuit dat
+        elk element uit het applicatieprofiel ooit zal voorkomen in een
+        voldoende grote verzameling van publicaties. Voor relaties en
+        eigenschappen van het applicatieprofiel die niet verplicht zijn, zullen
+        de scores daarom logischerwijze lager zijn dan voor verplichte
+        elementen. Een lage score kan je dus niet zomaar interpreteren als een
+        fout!
+      </p>
+    </section>
   </section>
 
-  <section class="bg-stone-100">
+  <section class="page bg-stone-100">
     <h2 class="bg-stone-300 text-stone-950 text-center">Methodologie</h2>
     <section class="text-sm ml-10">
+      <h3 class="text-lg">Verzamelen van data</h3>
       <section class="bg-white pb-4 pl-2">
+        <p class="pb-2">
+          Om een indicatie te kunnen geven van de implementatie van het
+          applicatieprofiel 'Besluit - Publicatie' heeft het ABB voor de periode
+          januari - juni 2023 documenten (agenda's, besluitenlijsten, notulen en
+          andere inhoudelijke documenten) opgehaald van de website van de lokale
+          besturen. Bij de documenten die gelinkt gepubliceerd werden, werden
+          een aantal testen uitgevoerd per klasse. Eerst werd bepaald in welke
+          documenten de klasse voorkomt, in die documenten werden een aantal
+          tests voor die klasse uitgevoerd. Voorbeelden van automatisch
+          uitgevoerde testen zijn:
+        </p>
+        <p class="pb-2">
+          + de aanwezigheid van bepaalde RDFa-attributen<br />
+          + de implementatie van bepaalde automatische calculaties in de
+          implementatie (bijv. som van stemmen)
+        </p>
         <p>
-          Op de volgende pagina's kan u respectievelijk het rapport voor de
-          gemeenteraad, raad voor maatschappelijk welzijn, college van
-          burgemeester en schepenen, vast bureau en burgemeester terug vinden.
-          Hieronder meer uitleg over de informatie die u kan terugvinden in de
-          kolommen"attribuut", "beschrijving attribuut" & "Indicator".
+          Op de volgende pagina's worden per maturiteitsniveau's de relevante
+          attributen weergegeven:
         </p>
       </section>
-      <h3 class="text-lg">Attribuut & beschrijving</h3>
-      <section class="bg-white pb-4 pl-2">
-        <p>
-          Een attribuut is welomlijnd element uit gelinkte besluiten, agenda's
-          en notulen. Om duidelijk te maken wat we hiermee bedoelen geven we bij
-          elk attribuut ook een korte beschrijving mee.
-        </p>
+      <h3 class="text-lg">Elementen</h3>
+      <section class="bg-white pb-4">
+        <table class="table-auto border-separate border-spacing-y-2 text-left">
+          <tbody>
+            <tr>
+              <td class="h-10 w-44 align-text-top">
+                <span class="px-2">Maturiteitsniveau</span>
+              </td>
+              <td class="px-2">
+                <p><span class="font-medium">Niveau 1:</span> omschrijft het minimum scenario waaraan moet voldaan
+                zijn om besluiten als Linked Open Data te publiceren. Het omvat
+                de basiselementen waaruit notulen bestaan. </p>
+                <p><span class="font-medium">Niveau 2:</span> in staat zijn om andere gelinkte data te hergebruiken.
+                Concreet betekent dit dat zij naar mandatarissen uit de
+                Mandatendatabank en leidinggevenden uit de
+                Leidinggevendendatabank moeten kunnen refereren met hun unieke
+                identificator (URI). </p>
+                <p><span class="font-medium">Niveau 3:</span> In niveau 3 wordt de inhoud van besluiten geannoteerd
+                volgens de vastgelegde Vlaamse (OSLO) en internationale (ELI)
+                standaarden. </p>
+                <p><span class="font-medium">Bonusniveau:</span> Het bonusniveau omschrijft bijkomende elementen die
+                het ABB wel wil belonen vanwege de voordelen die het biedt voor
+                de lokale besturen en andere stakeholders. In het bonusniveau
+                zullen elementen van verschillende criteria worden opgenomen.
+                Deze elementen krijgen een aantal bonussen toegekend op basis
+                van de relevantie en de moeilijkheidsgraad om te implementeren.
+                Hoe meer bonussen hoe relevanter en/of moeilijker het is om de
+                vereiste functionaliteit te implementeren. </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="h-10 w-44 align-text-top">
+                <span class="px-2">Attribuut</span>
+              </td>
+              <td class="px-2">
+                Een gestandaardiseerde annotatie die bestaat uit een entiteit en
+                eigenschap. Voor meer info over de betekenis van deze entiteiten
+                en eigenschappen zie
+                <a
+                  class="text-blue-600 underline"
+                  href="https://data.vlaanderen.be/doc/applicatieprofiel/besluit-publicatie/"
+                  >https://data.vlaanderen.be/doc/applicatieprofiel/besluit-publicatie/</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="h-10 w-44 align-text-top">
+                <span class="px-2">Verplicht / optioneel</span>
+              </td>
+              <td class="px-2">
+                <p><span class="font-medium">Verplicht:</span> Dit attribuut is verplicht in te vullen</p>
+                <p><span class="font-medium">Optioneel:</span> Voor dit attribuut kan je kiezen om deze in te vullen
+                of leeg te laten</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="h-10 w-44 align-text-top">
+                <span class="px-2">Count</span>
+              </td>
+              <td class="px-2">
+                Geeft het aantal publicaties weer waarin de betrokken entiteit
+                en eigenschap worden teruggevonden als gelinkte open data.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <h3 class="text-lg">Indicator</h3>
       <section class="bg-white">
-        <p class="pl-2 pb-4">
+        <p class="pl-2">
           De screening is gebaseerd op de gelinkt gepubliceerde documenten die
-          automatisch van de webtoepassing afgehaald konden worden. Aan de hand
-          van de indicator kan je per attribuut inschatten hoe goed je bestuur
-          hierop scoort. Een 100% aanwezigheid van een attribuut in de gevonden
-          publicaties wordt aangeduid in het groen:
+          automatisch van de webtoepassing afgehaald konden worden voor de
+          periode van januari - juni 2023. Deze publicaties hebben we op een
+          aantal punten getoetst.
+        </p>
+        <p class="pl-2 pb-4">
+          In dit rapport geven we mee welke attributen we terugvonden en onder
+          welk maturiteitsniveau deze vallen. Zo krijgen jullie een beter beeld
+          op welk niveau jullie toepassing zich momenteel bevindt, en waar
+          mogelijk nog stappen vooruit kunnen worden gezet
         </p>
 
         <table class="text-sm text-left bg-stone-300 w-full">
@@ -114,11 +170,27 @@
           <tbody>
             <tr>
               <td class="h-10 w-44 bg-green-600">
-                <span class="px-2">OK</span>
+                <span class="px-2"></span>
               </td>
               <td class="px-2">
-                100% van de gevonden publicaties bevatten dit attribuut.
+                Er zijn documenten gevonden en ze voldoen allemaal aan het
+                getoetste punt.
               </td>
+            </tr>
+            <tr>
+              <td class="h-10 w-44 bg-white">
+                <span class="px-2"></span>
+              </td>
+              <td class="px-2">
+                Er zijn documenten gevonden maar ze voldoen niet allemaal aan
+                het getoetste punt.
+              </td>
+            </tr>
+            <tr>
+              <td class="h-10 w-44 bg-red-600">
+                <span class="px-2"></span>
+              </td>
+              <td class="px-2">Er zijn geen documenten gevonden.</td>
             </tr>
           </tbody>
         </table>

@@ -98,7 +98,7 @@ const renderVendor = (
   } else {
     res.render(view, {
       title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
-      municipality: vendor,
+      vendor,
       attributeDescriptions,
       data: vendorDatas,
     });
