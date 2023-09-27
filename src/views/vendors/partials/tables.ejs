@@ -1,7 +1,5 @@
 <% const getPercentage = (value, total) => Math.round(value / total * 100) || 0; %> 
 
-<% const getDescription = (label) => attributeDescriptions.filter(({name}) => name === label)?.pop()?.description || ''; %> 
-
 <% const getColor = (percentage, required) => percentage > 99 && "bg-green-600" %> 
 
 <% const getBadge = (percentage, required) =>  { %> 
@@ -12,99 +10,110 @@
     </span>
 <% } %>
 
-<% const getGroupHeader = (label) => { %> 
+<% const getGroupHeader = (label, count) => { %> 
     <tr>
-        <th colspan="4" class="px-2 align-text-top text-xs bg-stone-300">
+        <th colspan="2" class="px-2 align-text-top text-xs bg-stone-300">
             <%= label %>
+        </th>
+        <th  class="px-2 align-text-top text-right text-xs bg-stone-300">
+            <%= count?.toLocaleString('nl-BE') %>
+        </th>
+        <th  class="px-2 align-text-top text-xs bg-stone-300">
         </th>
     </tr>
 <% } %>
 
-<% const getRow = (id, value, total, hasBackgroundColor) => { %> 
+<% const getRowWithPercentage = (id, value, total) => { %> 
     <% const formattedValue = value || 0 %>
     <% const formattedTotal = total || 0 %>
     <% const label = id.split(' - ').pop() %>
     <% const percent = getPercentage(formattedValue, formattedTotal) %>
-    <tr class="<%= hasBackgroundColor ? "bg-stone-100" : "bg-white" %>">
+    <tr class="odd:bg-stone-100 bg-white">
         <td class="w-48 px-2 align-text-top"><%= label %></td>
-        <td class="w-10 align-text-top">
+        <td class="w-14 px-2 align-text-top">Optioneel</td>
+        <td class="w-14 px-2 align-text-top text-right"><%= formattedValue?.toLocaleString('nl-BE') %></td>
+        <td class="w-10 align-text-top text-right">
             <%= getBadge(percent) %>
         </td>
-        <td class="w-14 px-2 align-text-top"><%= formattedValue %>/<%= formattedTotal %></td>
-        <td class="px-2 leading-tight whitespace-pre-wrap"><%= getDescription(id) %></td>
+    </tr>
+<% } %>
+
+<% const getRow = (label, value) => { %> 
+    <% const formattedValue = value || 0 %>
+    <tr class="odd:bg-stone-100 bg-white">
+        <td class="w-48 px-2 align-text-top"><%= label %></td>
+        <td class="w-14 px-2 align-text-top">Optioneel</td>
+        <td class="w-14 px-2 align-text-top text-right"><%= formattedValue?.toLocaleString('nl-BE') %></td>
+        <td class="w-10 align-text-top">
+            <%# getBadge(percent) %>
+        </td>
     </tr>
 <% } %>
 
 <section class="flex gap-4 print:block">
-    <% data.forEach((governingBodyData) => { %>
         <section class="page mb-10">
             <h2 class="text-xl text-center border-2 border-black">
-                <%= governingBodyData.governingBody %>
+                Maturiteitsniveau 1
             </h2>
             <table class="table-auto border-separate text-left text-xs w-full">
-                <caption class="text-lg font-normal caption-top text-left px-2 pt-2">
-                    Welke informatie <span class="font-semibold">mag er niet ontbreken</span> in je publicaties
-                </caption>
                 <thead class="bg-stone-500 text-stone-50">
                     <tr>
                         <th class="w-48 px-2">Attribuut</th>
-                        <th class="w-10 px-2">Indicator</th>
-                        <th class="w-14 px-2">Nummer</th>
-                        <th class="px-2">Beschrijving attribuut</th>
+                        <th class="w-10 px-2">Verplicht&nbsp;/&nbsp;Optioneel</th>
+                        <th class="w-14 px-2">Count</th>
+                        <th class="px-2">Indicator</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <%= getGroupHeader("Zitting") %>
-                    <%= getRow("Zitting - geplandeStart", governingBodyData.session_plannedStart_count, governingBodyData.session_count, true) %>
-                    <%= getRow("Zitting - start", governingBodyData.session_startedAt_count, governingBodyData.session_count) %>
-                    <%= getRow("Zitting - eind", governingBodyData.session_endedAt_count, governingBodyData.session_count, true) %>
-                    <%= getRow("Zitting - heeftAanwezigeBijStart", governingBodyData.session_attendeesAtStart_count, governingBodyData.session_count) %>
-                    <%= getGroupHeader("Agendapunt") %>
-                    <%= getRow("Agendapunt - titel", governingBodyData.agendaItem_title_count, governingBodyData.agendaItem_count, true) %>
-                    <%= getGroupHeader("Besluit") %>
-                    <%= getRow("Besluit - titel", governingBodyData.resolution_title_count, governingBodyData.resolution_count, true) %>
-                    <%= getRow("Besluit - inhoud", governingBodyData.resolution_content_count, governingBodyData.resolution_count) %>
-                    <%= getRow("Besluit - beschrijving", governingBodyData.resolution_description_count, governingBodyData.resolution_count, true) %>
-                    <%= getRow("Besluit - publicatiedatum", governingBodyData.resolution_dateOfPublication_count, governingBodyData.resolution_count) %>
-                    <%= getGroupHeader("Stemming") %>
-                    <%= getRow("Stemming - geheim", governingBodyData.vote_secret_count, governingBodyData.vote_count, true) %>
-                    <%= getRow("Stemming - onderwerp", governingBodyData.vote_subject_count, governingBodyData.vote_count) %>
-                    <%= getRow("Stemming - gevolg", governingBodyData.vote_consequence_count, governingBodyData.vote_count, true) %>
+                    <%= getRow("LegaleVerschijningsvorm", data.legalExpression_count) %>
+                    <%= getRow("Agent", data.agent_count) %>
+                    <%= getRow("BehandelingVanAgendapunt", data.agendaItemHandeling_count) %>
+                    <%= getRow("Agendapunt", data.agendaItem_count) %>
+                    <%= getRow("Zitting", data.session_count) %>
+                    <%= getRow("Stemming", data.vote_count) %>
+                    <%= getRow("Besluit", data.resolution_count) %>
+
+                    <%= getGroupHeader("BehandelingVanAgendapunt", data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftAanwezige", data.agendaItemHandeling_hasPresents_count, data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftOnderwerp", data.agendaItemHandeling_hasSubject_count, data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - gebeurtNa", data.agendaItemHandeling_takesPlaceAfter_count, data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - geeftAanleidingTot", data.agendaItemHandeling_givesRiseTo_count, data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftVoorzitter", data.agendaItemHandeling_hasChairman_count, data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftStemming", data.agendaItemHandeling_hasVotes_count, data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftSecretaris", data.agendaItemHandeling_hasSecretary_count, data.agendaItemHandeling_count) %>
+                    <%= getRowWithPercentage("BehandelingVanAgendapunt - openbaar", data.agendaItemHandeling_public_count, data.agendaItemHandeling_count) %>
+
+                    <%= getGroupHeader("Agendapunt", data.agendaItem_count) %>
+                    <%= getRowWithPercentage("Agendapunt - titel", data.agendaItem_title_count, data.agendaItem_count) %>
+                    <%= getRowWithPercentage("Agendapunt - beschrijving", data.agendaItem_description_count, data.agendaItem_count) %>
+                    <%= getRowWithPercentage("Agendapunt - aangebrachtNa", data.agendaItem_addedAfter_count, data.agendaItem_count) %>
+                    <%= getRowWithPercentage("Agendapunt - geplandOpenbaar", data.agendaItem_plannedPublic_count, data.agendaItem_count) %>
+
+                    <%= getGroupHeader("Zitting", data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - heeftNotulen", data.session_hasMinutes_count, data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - behandelt", data.session_covers_count, data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - isGehoudenDoor", data.session_heldBy_count, data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - eind", data.session_endedAt_count, data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - geplandeStart", data.session_plannedStart_count, data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - locatie", data.locatie, data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - start", data.session_startedAt_count, data.session_count) %>
+
+                    <%= getGroupHeader("Stemming", data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - heeftaanwezige", data.vote_hasPresents_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - heeftStemmer", data.vote_hasVoter_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - heeftOnthouder", data.vote_hasAbstainer_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - heeftTegenstander", data.vote_hasOpponent_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - heeftVoorstander", data.vote_hasProponent_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - aantalOnthouders", data.vote_numberOfAbstentions_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - aantalTegenstanders", data.vote_numberOfOpponents_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - aantalVoorstanders", data.vote_numberOfProponents_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - geheim", data.vote_secret_count, data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - onderwerp", data.vote_subject_count, data.vote_count) %>
+
+                    <%= getGroupHeader("Besluit", data.resolution_count) %>
+                    <%= getRowWithPercentage("Besluit - beschrijving", data.resolution_description_count, data.resolution_count) %>
                 </tbody>
             </table>
         </section>
-        <section class="page">
-            <h2 class="text-xl text-center border-2 border-black">
-                <%= governingBodyData.governingBody %>
-            </h2>
-            <table class="table-auto border-separate text-left text-xs mb-4 w-full">
-                <caption class="text-lg font-normal caption-top text-left px-2 pt-2">
-                    Welke informatie <span class="font-semibold">is aanbevolen</span> in je publicaties
-                </caption>
-                <thead class="bg-stone-500 text-stone-50">
-                    <tr>
-                        <th class="w-48 px-2 font-normal">Attribuut</th>
-                        <th class="w-10 px-2 font-normal">Indicator</th>
-                        <th class="w-14 px-2 font-normal">Nummer</th>
-                        <th class="px-2 font-normal">Beschrijving attribuut</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%= getGroupHeader("Agendapunt") %>
-                    <%= getRow("Agendapunt - beschrijving", governingBodyData.agendaItem_description_count, governingBodyData.agendaItem_count, true) %>
-                    <%= getGroupHeader("Artikel") %>
-                    <%= getRow("Artikel - nummer", governingBodyData.article_number_count, governingBodyData.article_count, true) %>
-                    <%= getRow("Artikel - inhoud", governingBodyData.article_content_count, governingBodyData.article_count) %>
-                    <%= getGroupHeader("Stemming") %>
-                    <%= getRow("Stemming - heeftaanwezige", governingBodyData.vote_hasPresents_count, governingBodyData.vote_count, true) %>
-                    <%= getRow("Stemming - heeftVoorstander", governingBodyData.vote_hasProponent_count, governingBodyData.vote_count) %>
-                    <%= getRow("Stemming - heeftTegenstander", governingBodyData.vote_hasOpponent_count, governingBodyData.vote_count, true) %>
-                    <%= getRow("Stemming - heeftOnthouder", governingBodyData.vote_hasAbstainer_count, governingBodyData.vote_count) %>
-                    <%= getRow("Stemming - aantalVoorstanders", governingBodyData.vote_numberOfProponents_count, governingBodyData.vote_count, true) %>
-                    <%= getRow("Stemming - aantalTegenstanders", governingBodyData.vote_numberOfOpponents_count, governingBodyData.vote_count) %>
-                    <%= getRow("Stemming - aantalOnthouders", governingBodyData.vote_numberOfAbstentions_count, governingBodyData.vote_count, true) %>
-                </tbody>
-            </table>
-        </section>
-    <% }) %>
+        
 </section>
