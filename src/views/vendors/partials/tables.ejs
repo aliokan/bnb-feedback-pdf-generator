@@ -126,7 +126,7 @@
                     
                     <%= getGroupHeader("Besluit", data.resolution_count) %>
                     <%= getRowWithPercentage("Besluit - citeeropschrift", data.resolution_quoteInscription_count, data.resolution_count) %>
-                    <%= getRowWithPercentage("Besluit - motivering", data.resolution_motivation_count, data.resolution_count) %>
+                    <%= getRowWithPercentage("Besluit - motivering", data.resolution_motivation_count, data.resolution_count, true) %>
                 </tbody>
             </table>
         </section>
@@ -176,6 +176,72 @@
                     <%= getRowWithPercentage("Besluit - inhoud", data.resolution_content_count, data.resolution_count, true) %>
                     <%= getRowWithPercentage("Besluit - taal", data.resolution_lang_count, data.resolution_count, true) %>
                     <%= getRowWithPercentage("Besluit - titel", data.resolution_title_count, data.resolution_count, true) %>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="page mb-10">
+            <h2 class="text-xl text-center border-2 border-black">
+                Geen maturiteitsniveau
+            </h2>
+            <table class="table-auto border-separate text-left text-xs w-full">
+                <thead class="bg-stone-500 text-stone-50">
+                    <tr>
+                        <th class="w-48 px-2">Attribuut</th>
+                        <th class="w-10 px-2">Verplicht&nbsp;/&nbsp;Optioneel</th>
+                        <th class="w-14 px-2">Count</th>
+                        <th class="px-2">Indicator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%= getGroupHeader("Agendapunt", data.agendaItem_count) %>
+                    <%= getRowWithPercentage("Agendapunt - heeftOntwerpbesluit", data.agendaItem_hasDraftResolution_count, data.agendaItem_count) %>
+                    <%= getRowWithPercentage("Agendapunt - refereertAan", data.agendaItem_refersTo_count, data.agendaItem_count) %>
+                    <%= getRowWithPercentage("Agendapunt - type", data.agendaItem_type_count, data.agendaItem_count, true) %>
+                    
+                    <%= getGroupHeader("Artikel", data.article_count) %>
+                    <%= getRowWithPercentage("Artikel - nummer", data.article_number_count, data.article_count, true) %>
+                    <%= getRowWithPercentage("Artikel - realiseert", data.article_realizes_count, data.article_count, true) %>
+                    
+                    <%= getGroupHeader("Besluit", data.resolution_count) %>
+                    <%= getRowWithPercentage("Besluit - citeert", data.resolution_quotes_count, data.resolution_count) %>
+
+                    <%= getGroupHeader("Bestuurseenheid", data.administrativeUnit_count) %>
+                    <%= getRowWithPercentage("Bestuurseenheid - classificatie", data.administrativeUnit_classification_count, data.administrativeUnit_count, true) %>
+                    <%= getRowWithPercentage("Bestuurseenheid - werkingsgebied", data.administrativeUnit_areaOfJurisdiction_count, data.administrativeUnit_count, true) %>
+
+                    <%= getGroupHeader("DocumentOnderdeel", data.documentComponent_count) %>
+                    <%= getRowWithPercentage("DocumentOnderdeel - isDeelVan", data.documentComponent_isPartOf2_count, data.documentComponent_count, true) %>
+                    <%= getRowWithPercentage("DocumentOnderdeel - isOnderdeelVan", data.documentComponent_isPartOf_count, data.documentComponent_count, true) %>
+                    <%= getRowWithPercentage("DocumentOnderdeel - nummer", data.documentComponent_number_count, data.documentComponent_count, true) %>
+                    <%= getRowWithPercentage("DocumentOnderdeel - type (Automatisch melden)", data.documentComponent_type_count, data.documentComponent_count, true) %>
+
+                    <%= getGroupHeader("LegaleVerschijningsvorm", data.legalExpression_count) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - citeert", data.legalExpression_quotes_count, data.legalExpression_count) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - corrigeert", data.legalExpression_corrects_count, data.legalExpression_count) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - gecorrigeerdDoor", data.legalExpression_correctedBy_count, data.legalExpression_count) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - veranderdDoor", data.legalExpression_changedBy_count, data.legalExpression_count) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - verandert", data.legalExpression_changes_count, data.legalExpression_count) %>
+
+                    <%= getGroupHeader("Rechtsgrond (Besluit)", data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond - buitenwerkingtreding", data.legalResource_outOfForce_count, data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond - citeert", data.legalResource_quotes_count, data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond - corrigeert", data.legalResource_corrects_count, data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond - gecorrigeerdDoor", data.legalResource_correctedBy_count, data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond - inwerkingtreding", data.legalResource_intoForce_count, data.legalResource_count, true) %>
+                    <%= getRowWithPercentage("Rechtsgrond - typeDocument", data.legalResource_documentType_count, data.legalResource_count, true) %>
+                    <%= getRowWithPercentage("Rechtsgrond - veranderdDoor", data.legalResource_changedBy_count, data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond - verandert", data.legalResource_changes_count, data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond (Besluit) - heeftDeel", data.legalResource_hasPart_count, data.legalResource_count, true) %>
+                    
+                    <%= getGroupHeader("Rechtsgrondonderdeel (Artikel)", data.legalResourceComponent_count) %>
+                    <%= getRowWithPercentage("Rechtsgrondonderdeel (Artikel) - isDeelVan", data.legalResourceComponent_isPartOf_count, data.legalResourceComponent_count, true) %>
+
+                    <%= getGroupHeader("Vergaderactiviteit", data.meetingActivity_count) %>
+                    <%= getRowWithPercentage("Vergaderactiviteit - heeftAanwezige", data.meetingActivity_hasPresents_count, data.meetingActivity_count) %>
+                    
+                    <%= getGroupHeader("Zitting", data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - heeftZittingsverslag", data.session_hasSessionsReport_count, data.session_count) %>
                 </tbody>
             </table>
         </section>
