@@ -130,5 +130,54 @@
                 </tbody>
             </table>
         </section>
+
+        <section class="page mb-10">
+            <h2 class="text-xl text-center border-2 border-black">
+                Bonusniveau
+            </h2>
+            <table class="table-auto border-separate text-left text-xs w-full">
+                <thead class="bg-stone-500 text-stone-50">
+                    <tr>
+                        <th class="w-48 px-2">Attribuut</th>
+                        <th class="w-10 px-2">Verplicht&nbsp;/&nbsp;Optioneel</th>
+                        <th class="w-14 px-2">Count</th>
+                        <th class="px-2">Indicator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%= getGroupHeader("Rechtsgrond (Besluit)", data.legalResource_count) %>
+                    <%= getRowWithPercentage("Rechtsgrond (Besluit) - aangenomenDoor", data.legalResource_passedBy_count, data.legalResource_count, true) %>
+                    <%= getRowWithPercentage("Rechtsgrond - heeft bijlage", data.legalResource_hasAttachment_count, data.legalResource_count, false) %>
+                    
+                    <%= getGroupHeader("Vergaderactiviteit", data.meetingActivity_count) %>
+                    
+                    <%= getGroupHeader("Document", data.document_count) %>
+                    
+                    <%= getGroupHeader("Bestuursorgaan", data.governingBody_count) %>
+                    <%= getRowWithPercentage("Bestuursorgaan - bestuurt", data.governingBody_runs_count, data.governingBody_count, true) %>
+                    <%= getRowWithPercentage("Bestuursorgaan - classificatie", data.governingBody_classification_count, data.governingBody_count, true) %>
+                    <%= getRowWithPercentage("Bestuursorgaan - naam", data.governingBody_name_count, data.governingBody_count, true) %>
+                    
+                    <%= getGroupHeader("LegaleVerschijningsvorm", data.legalExpression_count) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - inhoud", data.legalExpression_content_count, data.legalExpression_count, true) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - taal", data.legalExpression_lang_count, data.legalExpression_count, true) %>
+                    <%= getRowWithPercentage("LegaleVerschijningsvorm - titel", data.legalExpression_title_count, data.legalExpression_count, true) %>
+                    
+                    <%= getGroupHeader("Bestuurseenheid", data.administrativeUnit_count) %>
+                    <%= getRowWithPercentage("Bestuurseenheid - naam", data.administrativeUnit_name_count, data.administrativeUnit_count, true) %>
+                    
+                    <%= getGroupHeader("Artikel", data.article_count) %>
+                    <%= getRowWithPercentage("Artikel - inhoud", data.article_content_count, data.article_count, true) %>
+                    <%= getRowWithPercentage("Artikel - taal", data.article_lang_count, data.article_count, true) %>
+                    
+                    <%= getGroupHeader("Besluit", data.resolution_count) %>
+                    <%= getRowWithPercentage("Besluit - volgtUit", data.resolution_followsFrom_count, data.resolution_count, true) %>
+                    <%= getRowWithPercentage("Besluit - publicatiedatum", data.resolution_dateOfPublication_count, data.resolution_count) %>
+                    <%= getRowWithPercentage("Besluit - inhoud", data.resolution_content_count, data.resolution_count, true) %>
+                    <%= getRowWithPercentage("Besluit - taal", data.resolution_lang_count, data.resolution_count, true) %>
+                    <%= getRowWithPercentage("Besluit - titel", data.resolution_title_count, data.resolution_count, true) %>
+                </tbody>
+            </table>
+        </section>
         
 </section>
