@@ -7,18 +7,19 @@ export enum Vendor {
   BCT_Tobania = "BCT / Tobania",
   C_clear_LB365_Savaco_Thrives = "C-clear / LB365 / Savaco-Thrives",
   Ibabs = "Ibabs",
-  antwerpen = "antwerpen"
+  antwerpen = "antwerpen",
 }
 
 export type MunicipalityData = {
   // generic type for none translated keys
   [key: string]: string | number | boolean | null | undefined;
-  
+
   municipality?: string;
   vendor?: Vendor;
   governingBody?: string;
-  priority: string;
+  priority?: string;
   url?: string;
+  exampleUrl?: string;
   startDate?: string;
   endDate?: string;
   broken_list?: string;
@@ -137,4 +138,20 @@ export type MunicipalityData = {
   article_lang_count?: number;
   legalExpression_count?: number;
   resolution_quotes_count?: number;
+
+  re_use_attendees_percentage?: number;
+  re_use_attendees_count?: number;
+  re_use_attendees_not_linked_count?: number;
+  re_use_voters_percentage?: number;
+  re_use_voters_count?: number;
+  re_use_voters_not_linked_count?: number;
+  re_use_chairmen_percentage?: number;
+  re_use_chairmen_count?: number;
+  re_use_chairmen_not_linked_count?: number;
+  re_use_secretaries_percentage?: number;
+  re_use_secretaries_count?: number;
+  re_use_secretaries_not_linked_count?: number;
+  foundChairmanInAttendees_boolean?: number;
+  foundSecretaryInAttendees_boolean?: number;
+  foundChairmanThatIsAlsoAttendeeAsMandatary_boolean?: number;
 };

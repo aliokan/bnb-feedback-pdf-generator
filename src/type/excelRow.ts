@@ -4,6 +4,7 @@ export type Row = {
   Startdatum?: string;
   Einddatum?: string;
   "URL LBLOD-omgeving"?: string;
+  "Example publication"?: string;
   "Broken link to publications"?: string;
   "Number of publications at the source: "?: string;
   "Number of publications not yet harvested"?: string;
@@ -121,4 +122,20 @@ export type Row = {
   "Artikel - taal (Bonusniveau)"?: string;
   "LegaleVerschijningsvorm (Niveau 1)"?: string;
   "Besluit - citeert"?: string;
+
+  "Re-use aanwezigen %"?: string;
+  "Number of found aanwezigen"?: string;
+  "Number of aanwezigen not linked"?: string;
+  "Re-use stemmers %"?: string;
+  "Number of found stemmers"?: string;
+  "Number of stemmers not linked"?: string;
+  "Re-use voorzitters %"?: string;
+  "Number of found voorzitters"?: string;
+  "Number of voorzitters not linked"?: string;
+  "Re-use secretarissen %"?: string;
+  "Number of found secretarissen"?: string;
+  "Number of secretarissen not linked"?: string;
+  foundVoorzitterInAanwezigen?: string;
+  foundSecretarisInAanwezigen?: string;
+  foundVoorzitterThatIsAlsoAanwezigAsMandataris?: string;
 };
