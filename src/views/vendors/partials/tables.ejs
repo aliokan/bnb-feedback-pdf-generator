@@ -99,5 +99,36 @@
                 </tbody>
             </table>
         </section>
+
+        <section class="page mb-10">
+            <h2 class="text-xl text-center border-2 border-black">
+                Maturiteitsniveau 3
+            </h2>
+            <table class="table-auto border-separate text-left text-xs w-full">
+                <thead class="bg-stone-500 text-stone-50">
+                    <tr>
+                        <th class="w-48 px-2">Attribuut</th>
+                        <th class="w-10 px-2">Verplicht&nbsp;/&nbsp;Optioneel</th>
+                        <th class="w-14 px-2">Count</th>
+                        <th class="px-2">Indicator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%= getGroupHeader("Artikel", data.article_count) %>
+
+                    <%= getGroupHeader("Zitting", data.session_count) %>
+                    <%= getRowWithPercentage("Zitting - heeftAanwezigeBijStart", data.session_attendeesAtStart_count, data.session_count, true) %>
+                    <%= getRowWithPercentage("Zitting - heeftVoorzitter", data.session_hasChairman_count, data.session_count, true) %>
+                    <%= getRowWithPercentage("Zitting - heeftSecretaris", data.session_hasSecretary_count, data.session_count, true) %>
+                    
+                    <%= getGroupHeader("Stemming", data.vote_count) %>
+                    <%= getRowWithPercentage("Stemming - gevolg", data.vote_consequence_count, data.vote_count, true) %>
+                    
+                    <%= getGroupHeader("Besluit", data.resolution_count) %>
+                    <%= getRowWithPercentage("Besluit - citeeropschrift", data.resolution_quoteInscription_count, data.resolution_count) %>
+                    <%= getRowWithPercentage("Besluit - motivering", data.resolution_motivation_count, data.resolution_count) %>
+                </tbody>
+            </table>
+        </section>
         
 </section>
