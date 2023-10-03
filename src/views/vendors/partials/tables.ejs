@@ -23,7 +23,7 @@
     </tr>
 <% } %>
 
-<% const getRowWithPercentage = (id, value, total, isRequired) => { %> 
+<% const getRow = (id, value, total, isRequired) => { %> 
     <% const formattedValue = value || 0 %>
     <% const formattedTotal = total || 0 %>
     <% const label = id.split(' - ').pop() %>
@@ -35,6 +35,16 @@
         <td class="w-10 align-text-top text-right">
             <%= getBadge(percent, isRequired) %>
         </td>
+    </tr>
+<% } %>
+
+<% const getBasicRow = (id, value) => { %> 
+    <% const formattedValue = value || 0 %>
+    <% const label = id.split(' - ').pop() %>
+    <tr class="odd:bg-stone-100 bg-white">
+        <td colspan="2" class="w-48 px-2 align-text-top"><%= label %></td>
+        <td class="w-14 px-2 align-text-top text-right"><%= formattedValue?.toLocaleString('nl-BE') %></td>
+        <td class="w-10 align-text-top text-right"></td>
     </tr>
 <% } %>
 
@@ -54,48 +64,79 @@
                 </thead>
                 <tbody>
                     <%= getGroupHeader("Agendapunt", data.agendaItem_count) %>
-                    <%= getRowWithPercentage("Agendapunt - aangebrachtNa", data.agendaItem_addedAfter_count, data.agendaItem_count, false) %>
-                    <%= getRowWithPercentage("Agendapunt - beschrijving", data.agendaItem_description_count, data.agendaItem_count, false) %>
-                    <%= getRowWithPercentage("Agendapunt - geplandOpenbaar", data.agendaItem_plannedPublic_count, data.agendaItem_count, true) %>
-                    <%= getRowWithPercentage("Agendapunt - titel", data.agendaItem_title_count, data.agendaItem_count, true) %>
+                    <%= getRow("Agendapunt - aangebrachtNa", data.agendaItem_addedAfter_count, data.agendaItem_count, false) %>
+                    <%= getRow("Agendapunt - beschrijving", data.agendaItem_description_count, data.agendaItem_count, false) %>
+                    <%= getRow("Agendapunt - geplandOpenbaar", data.agendaItem_plannedPublic_count, data.agendaItem_count, true) %>
+                    <%= getRow("Agendapunt - titel", data.agendaItem_title_count, data.agendaItem_count, true) %>
 
                     <%= getGroupHeader("Agent", data.agent_count) %>
 
                     <%= getGroupHeader("BehandelingVanAgendapunt", data.agendaItemHandeling_count) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - gebeurtNa", data.agendaItemHandeling_takesPlaceAfter_count, data.agendaItemHandeling_count, false) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - geeftAanleidingTot", data.agendaItemHandeling_givesRiseTo_count, data.agendaItemHandeling_count, false) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftAanwezige", data.agendaItemHandeling_hasPresents_count, data.agendaItemHandeling_count, true) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftOnderwerp", data.agendaItemHandeling_hasSubject_count, data.agendaItemHandeling_count, true) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftSecretaris", data.agendaItemHandeling_hasSecretary_count, data.agendaItemHandeling_count, false) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftStemming", data.agendaItemHandeling_hasVotes_count, data.agendaItemHandeling_count, false) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - heeftVoorzitter", data.agendaItemHandeling_hasChairman_count, data.agendaItemHandeling_count, false) %>
-                    <%= getRowWithPercentage("BehandelingVanAgendapunt - openbaar", data.agendaItemHandeling_public_count, data.agendaItemHandeling_count, true) %>
+                    <%= getRow("BehandelingVanAgendapunt - gebeurtNa", data.agendaItemHandeling_takesPlaceAfter_count, data.agendaItemHandeling_count, false) %>
+                    <%= getRow("BehandelingVanAgendapunt - geeftAanleidingTot", data.agendaItemHandeling_givesRiseTo_count, data.agendaItemHandeling_count, false) %>
+                    <%= getRow("BehandelingVanAgendapunt - heeftAanwezige", data.agendaItemHandeling_hasPresents_count, data.agendaItemHandeling_count, true) %>
+                    <%= getRow("BehandelingVanAgendapunt - heeftOnderwerp", data.agendaItemHandeling_hasSubject_count, data.agendaItemHandeling_count, true) %>
+                    <%= getRow("BehandelingVanAgendapunt - heeftSecretaris", data.agendaItemHandeling_hasSecretary_count, data.agendaItemHandeling_count, false) %>
+                    <%= getRow("BehandelingVanAgendapunt - heeftStemming", data.agendaItemHandeling_hasVotes_count, data.agendaItemHandeling_count, false) %>
+                    <%= getRow("BehandelingVanAgendapunt - heeftVoorzitter", data.agendaItemHandeling_hasChairman_count, data.agendaItemHandeling_count, false) %>
+                    <%= getRow("BehandelingVanAgendapunt - openbaar", data.agendaItemHandeling_public_count, data.agendaItemHandeling_count, true) %>
 
                     <%= getGroupHeader("Besluit", data.resolution_count) %>
-                    <%= getRowWithPercentage("Besluit - beschrijving", data.resolution_description_count, data.resolution_count) %>
+                    <%= getRow("Besluit - beschrijving", data.resolution_description_count, data.resolution_count) %>
                     
                     <%= getGroupHeader("LegaleVerschijningsvorm", data.legalExpression_count) %>
 
                     <%= getGroupHeader("Stemming", data.vote_count) %>
-                    <%= getRowWithPercentage("Stemming - aantalOnthouders", data.vote_numberOfAbstentions_count, data.vote_count, true) %>
-                    <%= getRowWithPercentage("Stemming - aantalTegenstanders", data.vote_numberOfOpponents_count, data.vote_count, true) %>
-                    <%= getRowWithPercentage("Stemming - aantalVoorstanders", data.vote_numberOfProponents_count, data.vote_count, true) %>
-                    <%= getRowWithPercentage("Stemming - geheim", data.vote_secret_count, data.vote_count, true) %>
-                    <%= getRowWithPercentage("Stemming - heeftaanwezige", data.vote_hasPresents_count, data.vote_count, true) %>
-                    <%= getRowWithPercentage("Stemming - heeftOnthouder", data.vote_hasAbstainer_count, data.vote_count, false) %>
-                    <%= getRowWithPercentage("Stemming - heeftStemmer", data.vote_hasVoter_count, data.vote_count, true) %>
-                    <%= getRowWithPercentage("Stemming - heeftTegenstander", data.vote_hasOpponent_count, data.vote_count, false) %>
-                    <%= getRowWithPercentage("Stemming - heeftVoorstander", data.vote_hasProponent_count, data.vote_count, false) %>
-                    <%= getRowWithPercentage("Stemming - onderwerp", data.vote_subject_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - aantalOnthouders", data.vote_numberOfAbstentions_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - aantalTegenstanders", data.vote_numberOfOpponents_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - aantalVoorstanders", data.vote_numberOfProponents_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - geheim", data.vote_secret_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - heeftaanwezige", data.vote_hasPresents_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - heeftOnthouder", data.vote_hasAbstainer_count, data.vote_count, false) %>
+                    <%= getRow("Stemming - heeftStemmer", data.vote_hasVoter_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - heeftTegenstander", data.vote_hasOpponent_count, data.vote_count, false) %>
+                    <%= getRow("Stemming - heeftVoorstander", data.vote_hasProponent_count, data.vote_count, false) %>
+                    <%= getRow("Stemming - onderwerp", data.vote_subject_count, data.vote_count, true) %>
 
                     <%= getGroupHeader("Zitting", data.session_count) %>
-                    <%= getRowWithPercentage("Zitting - behandelt", data.session_covers_count, data.session_count, true) %>
-                    <%= getRowWithPercentage("Zitting - eind", data.session_endedAt_count, data.session_count, true) %>
-                    <%= getRowWithPercentage("Zitting - geplandeStart", data.session_plannedStart_count, data.session_count, true) %>
-                    <%= getRowWithPercentage("Zitting - heeftNotulen", data.session_hasMinutes_count, data.session_count, false) %>
-                    <%= getRowWithPercentage("Zitting - isGehoudenDoor", data.session_heldBy_count, data.session_count, true) %>
-                    <%= getRowWithPercentage("Zitting - locatie", data.locatie, data.session_count, false) %>
-                    <%= getRowWithPercentage("Zitting - start", data.session_startedAt_count, data.session_count, true) %>
+                    <%= getRow("Zitting - behandelt", data.session_covers_count, data.session_count, true) %>
+                    <%= getRow("Zitting - eind", data.session_endedAt_count, data.session_count, true) %>
+                    <%= getRow("Zitting - geplandeStart", data.session_plannedStart_count, data.session_count, true) %>
+                    <%= getRow("Zitting - heeftNotulen", data.session_hasMinutes_count, data.session_count, false) %>
+                    <%= getRow("Zitting - isGehoudenDoor", data.session_heldBy_count, data.session_count, true) %>
+                    <%= getRow("Zitting - locatie", data.locatie, data.session_count, false) %>
+                    <%= getRow("Zitting - start", data.session_startedAt_count, data.session_count, true) %>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="page mb-10">
+            <h2 class="text-xl text-center border-2 border-black">
+                Maturiteitsniveau 2
+            </h2>
+            <table class="table-auto border-separate text-left text-xs w-full">
+                <thead class="bg-stone-500 text-stone-50">
+                    <tr>
+                        <th colspan="2" class="w-56 px-2">Attribuut</th>
+                        <th class="w-14 px-2">Count</th>
+                        <th class="px-2">Indicator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%= getGroupHeader("Mandataris", data.mandatary_count) %>
+                    <%= getBasicRow("Re-use aanwezigen", data.re_use_attendees_percentage+ ' %') %>
+                    <%= getBasicRow("Number of found aanwezigen", data.re_use_attendees_count) %>
+                    <%= getBasicRow("Number of aanwezigen not linked", data.re_use_attendees_not_linked_count) %>
+                    <%= getBasicRow("Re-use stemmers", data.re_use_voters_percentage+ ' %') %>
+                    <%= getBasicRow("Number of found stemmers", data.re_use_voters_count) %>
+                    <%= getBasicRow("Number of stemmers not linked", data.re_use_voters_not_linked_count) %>
+                    <%= getBasicRow("Re-use voorzitters", data.re_use_chairmen_percentage+ ' %') %>
+                    <%= getBasicRow("Number of found voorzitters", data.re_use_chairmen_count) %>
+                    <%= getBasicRow("Number of voorzitters not linked", data.re_use_chairmen_not_linked_count) %>
+                    <%= getBasicRow("Re-use secretarissen", data.re_use_secretaries_percentage+ ' %') %>
+                    <%= getBasicRow("Number of found secretarissen", data.re_use_secretaries_count) %>
+                    <%= getBasicRow("Number of secretarissen not linked", data.re_use_secretaries_not_linked_count) %>
+
                 </tbody>
             </table>
         </section>
@@ -117,16 +158,16 @@
                     <%= getGroupHeader("Artikel", data.article_count) %>
 
                     <%= getGroupHeader("Zitting", data.session_count) %>
-                    <%= getRowWithPercentage("Zitting - heeftAanwezigeBijStart", data.session_attendeesAtStart_count, data.session_count, true) %>
-                    <%= getRowWithPercentage("Zitting - heeftVoorzitter", data.session_hasChairman_count, data.session_count, true) %>
-                    <%= getRowWithPercentage("Zitting - heeftSecretaris", data.session_hasSecretary_count, data.session_count, true) %>
+                    <%= getRow("Zitting - heeftAanwezigeBijStart", data.session_attendeesAtStart_count, data.session_count, true) %>
+                    <%= getRow("Zitting - heeftVoorzitter", data.session_hasChairman_count, data.session_count, true) %>
+                    <%= getRow("Zitting - heeftSecretaris", data.session_hasSecretary_count, data.session_count, true) %>
                     
                     <%= getGroupHeader("Stemming", data.vote_count) %>
-                    <%= getRowWithPercentage("Stemming - gevolg", data.vote_consequence_count, data.vote_count, true) %>
+                    <%= getRow("Stemming - gevolg", data.vote_consequence_count, data.vote_count, true) %>
                     
                     <%= getGroupHeader("Besluit", data.resolution_count) %>
-                    <%= getRowWithPercentage("Besluit - citeeropschrift", data.resolution_quoteInscription_count, data.resolution_count) %>
-                    <%= getRowWithPercentage("Besluit - motivering", data.resolution_motivation_count, data.resolution_count, true) %>
+                    <%= getRow("Besluit - citeeropschrift", data.resolution_quoteInscription_count, data.resolution_count) %>
+                    <%= getRow("Besluit - motivering", data.resolution_motivation_count, data.resolution_count, true) %>
                 </tbody>
             </table>
         </section>
@@ -146,36 +187,36 @@
                 </thead>
                 <tbody>
                     <%= getGroupHeader("Rechtsgrond (Besluit)", data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond (Besluit) - aangenomenDoor", data.legalResource_passedBy_count, data.legalResource_count, true) %>
-                    <%= getRowWithPercentage("Rechtsgrond - heeft bijlage", data.legalResource_hasAttachment_count, data.legalResource_count, false) %>
+                    <%= getRow("Rechtsgrond (Besluit) - aangenomenDoor", data.legalResource_passedBy_count, data.legalResource_count, true) %>
+                    <%= getRow("Rechtsgrond - heeft bijlage", data.legalResource_hasAttachment_count, data.legalResource_count, false) %>
                     
                     <%= getGroupHeader("Vergaderactiviteit", data.meetingActivity_count) %>
                     
                     <%= getGroupHeader("Document", data.document_count) %>
                     
                     <%= getGroupHeader("Bestuursorgaan", data.governingBody_count) %>
-                    <%= getRowWithPercentage("Bestuursorgaan - bestuurt", data.governingBody_runs_count, data.governingBody_count, true) %>
-                    <%= getRowWithPercentage("Bestuursorgaan - classificatie", data.governingBody_classification_count, data.governingBody_count, true) %>
-                    <%= getRowWithPercentage("Bestuursorgaan - naam", data.governingBody_name_count, data.governingBody_count, true) %>
+                    <%= getRow("Bestuursorgaan - bestuurt", data.governingBody_runs_count, data.governingBody_count, true) %>
+                    <%= getRow("Bestuursorgaan - classificatie", data.governingBody_classification_count, data.governingBody_count, true) %>
+                    <%= getRow("Bestuursorgaan - naam", data.governingBody_name_count, data.governingBody_count, true) %>
                     
                     <%= getGroupHeader("LegaleVerschijningsvorm", data.legalExpression_count) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - inhoud", data.legalExpression_content_count, data.legalExpression_count, true) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - taal", data.legalExpression_lang_count, data.legalExpression_count, true) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - titel", data.legalExpression_title_count, data.legalExpression_count, true) %>
+                    <%= getRow("LegaleVerschijningsvorm - inhoud", data.legalExpression_content_count, data.legalExpression_count, true) %>
+                    <%= getRow("LegaleVerschijningsvorm - taal", data.legalExpression_lang_count, data.legalExpression_count, true) %>
+                    <%= getRow("LegaleVerschijningsvorm - titel", data.legalExpression_title_count, data.legalExpression_count, true) %>
                     
                     <%= getGroupHeader("Bestuurseenheid", data.administrativeUnit_count) %>
-                    <%= getRowWithPercentage("Bestuurseenheid - naam", data.administrativeUnit_name_count, data.administrativeUnit_count, true) %>
+                    <%= getRow("Bestuurseenheid - naam", data.administrativeUnit_name_count, data.administrativeUnit_count, true) %>
                     
                     <%= getGroupHeader("Artikel", data.article_count) %>
-                    <%= getRowWithPercentage("Artikel - inhoud", data.article_content_count, data.article_count, true) %>
-                    <%= getRowWithPercentage("Artikel - taal", data.article_lang_count, data.article_count, true) %>
+                    <%= getRow("Artikel - inhoud", data.article_content_count, data.article_count, true) %>
+                    <%= getRow("Artikel - taal", data.article_lang_count, data.article_count, true) %>
                     
                     <%= getGroupHeader("Besluit", data.resolution_count) %>
-                    <%= getRowWithPercentage("Besluit - volgtUit", data.resolution_followsFrom_count, data.resolution_count, true) %>
-                    <%= getRowWithPercentage("Besluit - publicatiedatum", data.resolution_dateOfPublication_count, data.resolution_count) %>
-                    <%= getRowWithPercentage("Besluit - inhoud", data.resolution_content_count, data.resolution_count, true) %>
-                    <%= getRowWithPercentage("Besluit - taal", data.resolution_lang_count, data.resolution_count, true) %>
-                    <%= getRowWithPercentage("Besluit - titel", data.resolution_title_count, data.resolution_count, true) %>
+                    <%= getRow("Besluit - volgtUit", data.resolution_followsFrom_count, data.resolution_count, true) %>
+                    <%= getRow("Besluit - publicatiedatum", data.resolution_dateOfPublication_count, data.resolution_count) %>
+                    <%= getRow("Besluit - inhoud", data.resolution_content_count, data.resolution_count, true) %>
+                    <%= getRow("Besluit - taal", data.resolution_lang_count, data.resolution_count, true) %>
+                    <%= getRow("Besluit - titel", data.resolution_title_count, data.resolution_count, true) %>
                 </tbody>
             </table>
         </section>
@@ -195,53 +236,53 @@
                 </thead>
                 <tbody>
                     <%= getGroupHeader("Agendapunt", data.agendaItem_count) %>
-                    <%= getRowWithPercentage("Agendapunt - heeftOntwerpbesluit", data.agendaItem_hasDraftResolution_count, data.agendaItem_count) %>
-                    <%= getRowWithPercentage("Agendapunt - refereertAan", data.agendaItem_refersTo_count, data.agendaItem_count) %>
-                    <%= getRowWithPercentage("Agendapunt - type", data.agendaItem_type_count, data.agendaItem_count, true) %>
+                    <%= getRow("Agendapunt - heeftOntwerpbesluit", data.agendaItem_hasDraftResolution_count, data.agendaItem_count) %>
+                    <%= getRow("Agendapunt - refereertAan", data.agendaItem_refersTo_count, data.agendaItem_count) %>
+                    <%= getRow("Agendapunt - type", data.agendaItem_type_count, data.agendaItem_count, true) %>
                     
                     <%= getGroupHeader("Artikel", data.article_count) %>
-                    <%= getRowWithPercentage("Artikel - nummer", data.article_number_count, data.article_count, true) %>
-                    <%= getRowWithPercentage("Artikel - realiseert", data.article_realizes_count, data.article_count, true) %>
+                    <%= getRow("Artikel - nummer", data.article_number_count, data.article_count, true) %>
+                    <%= getRow("Artikel - realiseert", data.article_realizes_count, data.article_count, true) %>
                     
                     <%= getGroupHeader("Besluit", data.resolution_count) %>
-                    <%= getRowWithPercentage("Besluit - citeert", data.resolution_quotes_count, data.resolution_count) %>
+                    <%= getRow("Besluit - citeert", data.resolution_quotes_count, data.resolution_count) %>
 
                     <%= getGroupHeader("Bestuurseenheid", data.administrativeUnit_count) %>
-                    <%= getRowWithPercentage("Bestuurseenheid - classificatie", data.administrativeUnit_classification_count, data.administrativeUnit_count, true) %>
-                    <%= getRowWithPercentage("Bestuurseenheid - werkingsgebied", data.administrativeUnit_areaOfJurisdiction_count, data.administrativeUnit_count, true) %>
+                    <%= getRow("Bestuurseenheid - classificatie", data.administrativeUnit_classification_count, data.administrativeUnit_count, true) %>
+                    <%= getRow("Bestuurseenheid - werkingsgebied", data.administrativeUnit_areaOfJurisdiction_count, data.administrativeUnit_count, true) %>
 
                     <%= getGroupHeader("DocumentOnderdeel", data.documentComponent_count) %>
-                    <%= getRowWithPercentage("DocumentOnderdeel - isDeelVan", data.documentComponent_isPartOf2_count, data.documentComponent_count, true) %>
-                    <%= getRowWithPercentage("DocumentOnderdeel - isOnderdeelVan", data.documentComponent_isPartOf_count, data.documentComponent_count, true) %>
-                    <%= getRowWithPercentage("DocumentOnderdeel - nummer", data.documentComponent_number_count, data.documentComponent_count, true) %>
-                    <%= getRowWithPercentage("DocumentOnderdeel - type (Automatisch melden)", data.documentComponent_type_count, data.documentComponent_count, true) %>
+                    <%= getRow("DocumentOnderdeel - isDeelVan", data.documentComponent_isPartOf2_count, data.documentComponent_count, true) %>
+                    <%= getRow("DocumentOnderdeel - isOnderdeelVan", data.documentComponent_isPartOf_count, data.documentComponent_count, true) %>
+                    <%= getRow("DocumentOnderdeel - nummer", data.documentComponent_number_count, data.documentComponent_count, true) %>
+                    <%= getRow("DocumentOnderdeel - type (Automatisch melden)", data.documentComponent_type_count, data.documentComponent_count, true) %>
 
                     <%= getGroupHeader("LegaleVerschijningsvorm", data.legalExpression_count) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - citeert", data.legalExpression_quotes_count, data.legalExpression_count) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - corrigeert", data.legalExpression_corrects_count, data.legalExpression_count) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - gecorrigeerdDoor", data.legalExpression_correctedBy_count, data.legalExpression_count) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - veranderdDoor", data.legalExpression_changedBy_count, data.legalExpression_count) %>
-                    <%= getRowWithPercentage("LegaleVerschijningsvorm - verandert", data.legalExpression_changes_count, data.legalExpression_count) %>
+                    <%= getRow("LegaleVerschijningsvorm - citeert", data.legalExpression_quotes_count, data.legalExpression_count) %>
+                    <%= getRow("LegaleVerschijningsvorm - corrigeert", data.legalExpression_corrects_count, data.legalExpression_count) %>
+                    <%= getRow("LegaleVerschijningsvorm - gecorrigeerdDoor", data.legalExpression_correctedBy_count, data.legalExpression_count) %>
+                    <%= getRow("LegaleVerschijningsvorm - veranderdDoor", data.legalExpression_changedBy_count, data.legalExpression_count) %>
+                    <%= getRow("LegaleVerschijningsvorm - verandert", data.legalExpression_changes_count, data.legalExpression_count) %>
 
                     <%= getGroupHeader("Rechtsgrond (Besluit)", data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond - buitenwerkingtreding", data.legalResource_outOfForce_count, data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond - citeert", data.legalResource_quotes_count, data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond - corrigeert", data.legalResource_corrects_count, data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond - gecorrigeerdDoor", data.legalResource_correctedBy_count, data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond - inwerkingtreding", data.legalResource_intoForce_count, data.legalResource_count, true) %>
-                    <%= getRowWithPercentage("Rechtsgrond - typeDocument", data.legalResource_documentType_count, data.legalResource_count, true) %>
-                    <%= getRowWithPercentage("Rechtsgrond - veranderdDoor", data.legalResource_changedBy_count, data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond - verandert", data.legalResource_changes_count, data.legalResource_count) %>
-                    <%= getRowWithPercentage("Rechtsgrond (Besluit) - heeftDeel", data.legalResource_hasPart_count, data.legalResource_count, true) %>
+                    <%= getRow("Rechtsgrond - buitenwerkingtreding", data.legalResource_outOfForce_count, data.legalResource_count) %>
+                    <%= getRow("Rechtsgrond - citeert", data.legalResource_quotes_count, data.legalResource_count) %>
+                    <%= getRow("Rechtsgrond - corrigeert", data.legalResource_corrects_count, data.legalResource_count) %>
+                    <%= getRow("Rechtsgrond - gecorrigeerdDoor", data.legalResource_correctedBy_count, data.legalResource_count) %>
+                    <%= getRow("Rechtsgrond - inwerkingtreding", data.legalResource_intoForce_count, data.legalResource_count, true) %>
+                    <%= getRow("Rechtsgrond - typeDocument", data.legalResource_documentType_count, data.legalResource_count, true) %>
+                    <%= getRow("Rechtsgrond - veranderdDoor", data.legalResource_changedBy_count, data.legalResource_count) %>
+                    <%= getRow("Rechtsgrond - verandert", data.legalResource_changes_count, data.legalResource_count) %>
+                    <%= getRow("Rechtsgrond (Besluit) - heeftDeel", data.legalResource_hasPart_count, data.legalResource_count, true) %>
                     
                     <%= getGroupHeader("Rechtsgrondonderdeel (Artikel)", data.legalResourceComponent_count) %>
-                    <%= getRowWithPercentage("Rechtsgrondonderdeel (Artikel) - isDeelVan", data.legalResourceComponent_isPartOf_count, data.legalResourceComponent_count, true) %>
+                    <%= getRow("Rechtsgrondonderdeel (Artikel) - isDeelVan", data.legalResourceComponent_isPartOf_count, data.legalResourceComponent_count, true) %>
 
                     <%= getGroupHeader("Vergaderactiviteit", data.meetingActivity_count) %>
-                    <%= getRowWithPercentage("Vergaderactiviteit - heeftAanwezige", data.meetingActivity_hasPresents_count, data.meetingActivity_count) %>
+                    <%= getRow("Vergaderactiviteit - heeftAanwezige", data.meetingActivity_hasPresents_count, data.meetingActivity_count) %>
                     
                     <%= getGroupHeader("Zitting", data.session_count) %>
-                    <%= getRowWithPercentage("Zitting - heeftZittingsverslag", data.session_hasSessionsReport_count, data.session_count) %>
+                    <%= getRow("Zitting - heeftZittingsverslag", data.session_hasSessionsReport_count, data.session_count) %>
                 </tbody>
             </table>
         </section>
