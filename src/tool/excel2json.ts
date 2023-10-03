@@ -182,7 +182,10 @@ const getVendorsData = (data: MunicipalityData[]) => {
 
     return {
       ...acc,
-      [vendor]: Object.fromEntries(values),
+      [vendor]: {
+        ...accVendor,
+        ...Object.fromEntries(values),
+      }
     };
   }, {} as { [key in Vendor]: MunicipalityData });
 
