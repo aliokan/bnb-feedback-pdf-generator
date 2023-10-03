@@ -145,11 +145,17 @@ const formatData = (headers: CellValue[], data: Row[]): MunicipalityData[] => {
 };
 
 const sortData = (a: MunicipalityData, b: MunicipalityData) => {
-  return a.priority > b.priority ? 1 : -1;
+  return a.priority?.localeCompare(b.priority ?? "") ?? 0;
 };
 
-function concatValues<T>(value: unknown, accValue: T): T {
-  if (accValue === undefined && typeof value === "number") return value as T;
+function concatValues<T>(value: unknown, accValue: T, key: string): T {
+  if (
+    accValue === undefined &&
+    typeof value === "number" &&
+    // percentage values need to be put in an array
+    !key.includes("percent")
+  )
+    return value as T;
   else if (accValue === undefined) return [value] as T;
   if (typeof accValue === "number" && typeof value === "number") {
     return (accValue + value) as T;
@@ -161,7 +167,7 @@ function concatValues<T>(value: unknown, accValue: T): T {
 }
 
 const getVendorsData = (data: MunicipalityData[]) => {
-  return data.reduce((acc, row) => {
+  const vendorData = data.reduce((acc, row) => {
     const vendor = row.vendor;
     if (!vendor) return acc;
 
@@ -170,7 +176,7 @@ const getVendorsData = (data: MunicipalityData[]) => {
     const values = Object.entries(row).map(([key, value]) => {
       return [
         key,
-        concatValues(value, accVendor[key as keyof MunicipalityData]),
+        concatValues(value, accVendor[key as keyof MunicipalityData], key),
       ];
     });
 
@@ -179,6 +185,35 @@ const getVendorsData = (data: MunicipalityData[]) => {
       [vendor]: Object.fromEntries(values),
     };
   }, {} as { [key in Vendor]: MunicipalityData });
+
+  // post processing
+  return Object.fromEntries(
+    Object.entries(vendorData).map(([key, values]) => {
+      // remove not needed keys
+      delete values.url;
+      delete values.exampleUrl;
+      delete values.startDate;
+      delete values.endDate;
+      delete values.priority;
+      delete values.vendor;
+
+      // when key contains percentage, calculate percentage
+      const percentageEntries = Object.entries(values).filter(([key]) =>
+        key.includes("percent")
+      );
+      for (const [key, percentages] of percentageEntries) {
+        if (Array.isArray(percentages)) {
+          const sum = percentages.reduce(
+            (acc, curr) => acc + (curr as number),
+            0
+          );
+          values[key] = Math.round((sum / percentages.length) * 100) / 100;
+        }
+      }
+
+      return [key, values];
+    })
+  );
 };
 
 const main = async () => {
