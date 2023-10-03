@@ -6,6 +6,7 @@ import { MunicipalityData } from "../type/formattedType";
 import path from "node:path";
 
 const dataPath = env.DATA_PATH || "./data.json";
+const dataVendorPath = env.DATA_VENDOR_PATH || "./data-vendors.json";
 const exportPath = env.EXPORT_PATH || "./export";
 
 const getMunicipalityList = async (
@@ -20,6 +21,19 @@ const getMunicipalityList = async (
     const deduplicate = [...new Set(municipalities)];
 
     return deduplicate;
+  } catch (error) {
+    console.error("JSON file parsing error:", error);
+  }
+};
+
+const getVendorList = async (
+  path: string
+): Promise<string[] | undefined> => {
+  try {
+    const json = await readFile(path);
+    const data = JSON.parse(json.toString());
+
+    return Object.keys(data);
   } catch (error) {
     console.error("JSON file parsing error:", error);
   }
@@ -48,7 +62,7 @@ const getPDF = async (
   return pdf;
 };
 
-const generatePDF = async (
+const generateMunicipalityPDF = async (
   municipality: string,
   page: Page,
   exportPath: string
@@ -78,7 +92,12 @@ const generatePDF = async (
 
     const municipalityNormalized = municipality.toLowerCase().replace(" ", "-");
     const publicationDate = new Date().toISOString().slice(0, 10);
-    const salt = Buffer.from(`salty${municipality}`.split('').reverse().join('')).toString('base64').slice(0, 5).toLowerCase();
+    const salt = Buffer.from(
+      `salty${municipality}`.split("").reverse().join("")
+    )
+      .toString("base64")
+      .slice(0, 5)
+      .toLowerCase();
     const directory = `${exportPath}/municipalities/${municipalityNormalized}-${salt}`;
     const fileName = `${municipalityNormalized}-${publicationDate}.pdf`;
 
@@ -89,19 +108,82 @@ const generatePDF = async (
   }
 };
 
+const generateVendorPDF = async (
+  vendor: string,
+  page: Page,
+  exportPath: string
+): Promise<void> => {
+  try {
+    console.log(`Generating PDF for ${vendor}`);
+
+    const vendorBuffer = await getPDF(
+      page,
+      `http://localhost:3000/vendors/${vendor}`,
+      vendor,
+      false,
+      true
+    );
+
+    const pdfMerger = new PDFMerger();
+    await pdfMerger.add(vendorBuffer);
+    const pdf = await pdfMerger.saveAsBuffer();
+
+    const vendorNormalized = vendor.toLowerCase().replace(" ", "-");
+    const publicationDate = new Date().toISOString().slice(0, 10);
+    const salt = Buffer.from(
+      `salty${vendor}`.split("").reverse().join("")
+    )
+      .toString("base64")
+      .slice(0, 5)
+      .toLowerCase();
+    const directory = `${exportPath}/vendors/${vendorNormalized}-${salt}`;
+    const fileName = `${vendorNormalized}-${publicationDate}.pdf`;
+
+    await mkdir(directory, { recursive: true });
+    await writeFile(path.join(directory, fileName), pdf);
+  } catch (error) {
+    console.error("PDF Generation error:", error);
+  }
+};
+
+const generateMunicipalityPDFs = async (
+  sourcePath: string,
+  page: Page,
+  exportPath: string
+): Promise<void> => {
+  const municipalities = await getMunicipalityList(sourcePath);
+  console.log(municipalities);
+
+  if (municipalities) {
+    for (const municipality of municipalities) {
+      await generateMunicipalityPDF(municipality, page, exportPath);
+    }
+  }
+};
+
+const generateVendorPDFs = async (
+  sourcePath: string,
+  page: Page,
+  exportPath: string
+): Promise<void> => {
+  const vendors = await getVendorList(sourcePath);
+  console.log(vendors);
+
+  if (vendors) {
+    for (const vendor of vendors) {
+      await generateVendorPDF(vendor, page, exportPath);
+    }
+  }
+};
+
 const main = async () => {
   const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
   await page.setCacheEnabled(false);
   console.log(dataPath);
-  const municipalities = await getMunicipalityList(dataPath);
-  console.log(municipalities);
 
-  if (!municipalities) return;
-
-  for (const municipality of municipalities) {
-    await generatePDF(municipality, page, exportPath);
-  }
+  // await generateMunicipalityPDFs(dataPath, page, exportPath);
+  await generateVendorPDFs(dataVendorPath, page, exportPath);
 
   await browser.close();
 };
