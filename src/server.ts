@@ -82,23 +82,25 @@ app.get("/municipalities/:municipality/tables", (req, res) => {
 app.get("/vendors", (req, res) => {
   res.render("vendors/index", {
     title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
-    vendors: Object.keys(vendors),
+    vendors: Vendor,
   });
 });
 
 const renderVendor = (
   res: express.Response,
   view: string,
-  vendor: string
+  vendor: Vendor
 ) => {
-  const vendorDatas = vendors[vendor];
+  //@ts-ignore
+  const vendorName = Vendor[vendor];
+  const vendorDatas = vendors[vendorName];
 
   if (!vendorDatas) {
     res.status(404).send("Sorry cant find that!");
   } else {
     res.render(view, {
       title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
-      vendor,
+      vendor: vendorName,
       attributeDescriptions,
       data: vendorDatas,
     });
@@ -106,15 +108,15 @@ const renderVendor = (
 };
 
 app.get("/vendors/:vendor", (req, res) => {
-  renderVendor(res, "vendors/vendor", req.params.vendor);
+  renderVendor(res, "vendors/vendor", req.params.vendor as Vendor);
 });
 
 app.get("/vendors/:vendor/introduction", (req, res) => {
-  renderVendor(res, "vendors/introduction", req.params.vendor);
+  renderVendor(res, "vendors/introduction", req.params.vendor as Vendor);
 });
 
 app.get("/vendors/:vendor/tables", (req, res) => {
-  renderVendor(res, "vendors/tables", req.params.vendor);
+  renderVendor(res, "vendors/tables", req.params.vendor as Vendor);
 });
 
 app.listen(3000, () => {

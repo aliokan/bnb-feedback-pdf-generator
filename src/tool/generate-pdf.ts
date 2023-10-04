@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { env } from "node:process";
 import puppeteer, { Page } from "puppeteer";
 import PDFMerger from "pdf-merger-js";
-import { MunicipalityData } from "../type/formattedType";
+import { MunicipalityData, Vendor } from "../type/formattedType";
 import path from "node:path";
 
 const dataPath = env.DATA_PATH || "./data.json";
@@ -30,10 +30,10 @@ const getVendorList = async (
   path: string
 ): Promise<string[] | undefined> => {
   try {
-    const json = await readFile(path);
-    const data = JSON.parse(json.toString());
+    // const json = await readFile(path);
+    // const data = JSON.parse(json.toString());
 
-    return Object.keys(data);
+    return Object.keys(Vendor);
   } catch (error) {
     console.error("JSON file parsing error:", error);
   }
@@ -128,10 +128,10 @@ const generateVendorPDF = async (
     await pdfMerger.add(vendorBuffer);
     const pdf = await pdfMerger.saveAsBuffer();
 
-    const vendorNormalized = vendor.toLowerCase().replace(" ", "-");
+    const vendorNormalized = vendor.toLowerCase().replace(/\s+/g, "").replace(/\//g, "-");
     const publicationDate = new Date().toISOString().slice(0, 10);
     const salt = Buffer.from(
-      `salty${vendor}`.split("").reverse().join("")
+      `salty${vendorNormalized}`.split("").reverse().join("")
     )
       .toString("base64")
       .slice(0, 5)

@@ -8,12 +8,12 @@
       <section class="page">
         <h1 class="text-2xl">Leveranciers</h1>
         <ul>
-          <% vendors.forEach((name) => { %>
+          <% for (const key in vendors) { %>
           <li class="hover:underline">
-            <a href="/vendors/<%= name %>"><%= name %></a>
+            <a href="/vendors/<%= key %>"><%= vendors[key] %></a>
           </li>
           <hr />
-          <% }) %>
+          <% } %>
         </ul>
       </section>
     </main>

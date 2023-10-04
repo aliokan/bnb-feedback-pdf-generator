@@ -1,3 +1,4 @@
+// add type for vendor
 export enum Vendor {
   Greenvalley = "Greenvalley",
   CipalSchaubroeck = "CipalSchaubroeck",
@@ -7,7 +8,7 @@ export enum Vendor {
   BCT_Tobania = "BCT / Tobania",
   C_clear_LB365_Savaco_Thrives = "C-clear / LB365 / Savaco-Thrives",
   Ibabs = "Ibabs",
-  antwerpen = "antwerpen",
+  Antwerpen = "Antwerpen",
 }
 
 export type MunicipalityData = {
