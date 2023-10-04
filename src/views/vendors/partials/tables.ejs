@@ -1,5 +1,7 @@
 <% const getPercentage = (value, total) => Math.round(value / total * 100) || 0; %> 
 
+<% const getReusedPercentage = (reuse, notReuse) => Math.round(reuse / (reuse+notReuse) * 100) || 0; %> 
+
 <% const getColor = (percentage, isRequired) => percentage > 99 && "bg-green-600" %> 
 
 <% const getBadge = (percentage, isRequired) =>  { %> 
@@ -120,18 +122,18 @@
             </thead>
             <tbody>
                 <%= getGroupHeader("Mandataris", data.mandatary_count) %>
-                <%= getBasicRow("Re-use aanwezigen", data.re_use_attendees_percentage+ ' %') %>
-                <%= getBasicRow("Number of found aanwezigen", data.re_use_attendees_count) %>
-                <%= getBasicRow("Number of aanwezigen not linked", data.re_use_attendees_not_linked_count) %>
-                <%= getBasicRow("Re-use stemmers", data.re_use_voters_percentage+ ' %') %>
-                <%= getBasicRow("Number of found stemmers", data.re_use_voters_count) %>
-                <%= getBasicRow("Number of stemmers not linked", data.re_use_voters_not_linked_count) %>
-                <%= getBasicRow("Re-use voorzitters", data.re_use_chairmen_percentage+ ' %') %>
-                <%= getBasicRow("Number of found voorzitters", data.re_use_chairmen_count) %>
-                <%= getBasicRow("Number of voorzitters not linked", data.re_use_chairmen_not_linked_count) %>
-                <%= getBasicRow("Re-use secretarissen", data.re_use_secretaries_percentage+ ' %') %>
-                <%= getBasicRow("Number of found secretarissen", data.re_use_secretaries_count) %>
-                <%= getBasicRow("Number of secretarissen not linked", data.re_use_secretaries_not_linked_count) %>
+                <%= getBasicRow("Hergebruik aanwezigen-URI uit mandatendatabank", getReusedPercentage(data.re_use_attendees_count, data.re_use_attendees_not_linked_count) + ' %') %>
+                <%= getBasicRow("Aantal gevonden aanwezigen (unieke URIs)", data.re_use_attendees_count) %>
+                <%= getBasicRow("Aantal aanwezigen niet gelink met mandatendatabank", data.re_use_attendees_not_linked_count) %>
+                <%= getBasicRow("Hergebruik stemmers-URI uit mandatendatabank", getReusedPercentage(data.re_use_voters_count, data.re_use_voters_not_linked_count) + ' %') %>
+                <%= getBasicRow("Aantal gevonden stemmers (unieke URIs)", data.re_use_voters_count) %>
+                <%= getBasicRow("Aantal stemmers niet gelink met mandatendatabank", data.re_use_voters_not_linked_count) %>
+                <%= getBasicRow("Hergebruik voorzitters-URI uit mandatendatabank", getReusedPercentage(data.re_use_chairmen_count, data.re_use_chairmen_not_linked_count) + ' %') %>
+                <%= getBasicRow("Aantal gevonden voorzitters (unieke URIs)", data.re_use_chairmen_count) %>
+                <%= getBasicRow("Aantal voorzitters niet gelink met mandatendatabank", data.re_use_chairmen_not_linked_count) %>
+                <%= getBasicRow("Hergebruik secretarissen-URI uit mandatendatabank", getReusedPercentage(data.re_use_secretaries_count, data.re_use_secretaries_not_linked_count) + ' %') %>
+                <%= getBasicRow("Aantal gevonden secretarissen (unieke URIs)", data.re_use_secretaries_count) %>
+                <%= getBasicRow("Aantal secretarissen niet gelink met mandatendatabank", data.re_use_secretaries_not_linked_count) %>
             </tbody>
         </table>
     </section>
