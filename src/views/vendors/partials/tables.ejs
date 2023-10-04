@@ -1,6 +1,6 @@
 <% const getPercentage = (value, total) => Math.round(value / total * 100) || 0; %> 
 
-<% const getReusedPercentage = (reuse, notReuse) => Math.round(reuse / (reuse+notReuse) * 100) || 0; %> 
+<% const getReusedPercentage = (total, notLinked) => Math.round((total-notLinked) / total * 100) || 0; %> 
 
 <% const getColor = (percentage, isRequired) => percentage > 99 && "bg-green-600" %> 
 
@@ -131,9 +131,9 @@
                 <%= getBasicRow("Hergebruik voorzitters-URI uit mandatendatabank", getReusedPercentage(data.re_use_chairmen_count, data.re_use_chairmen_not_linked_count) + ' %') %>
                 <%= getBasicRow("Aantal gevonden voorzitters (unieke URIs)", data.re_use_chairmen_count) %>
                 <%= getBasicRow("Aantal voorzitters niet gelink met mandatendatabank", data.re_use_chairmen_not_linked_count) %>
-                <%= getBasicRow("Hergebruik secretarissen-URI uit mandatendatabank", getReusedPercentage(data.re_use_secretaries_count, data.re_use_secretaries_not_linked_count) + ' %') %>
+                <%= getBasicRow("Hergebruik secretarissen-URI uit leidinggevendendatabank", getReusedPercentage(data.re_use_secretaries_count, data.re_use_secretaries_not_linked_count) + ' %') %>
                 <%= getBasicRow("Aantal gevonden secretarissen (unieke URIs)", data.re_use_secretaries_count) %>
-                <%= getBasicRow("Aantal secretarissen niet gelink met mandatendatabank", data.re_use_secretaries_not_linked_count) %>
+                <%= getBasicRow("Aantal secretarissen niet gelink met leidinggevendendatabank", data.re_use_secretaries_not_linked_count) %>
             </tbody>
         </table>
     </section>
