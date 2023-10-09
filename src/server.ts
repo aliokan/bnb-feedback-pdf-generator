@@ -35,6 +35,13 @@ app.use(
   )
 );
 
+app.get("/", (req, res) => {
+
+  res.render("index", {
+    title: "FEEDBACK GELINKT PUBLICEREN EN MELDEN",
+  });
+});
+
 app.get("/municipalities", (req, res) => {
   const municipalities = [
     ...new Set(data.map(({ municipality }) => municipality)),
