@@ -1,4 +1,4 @@
-# PoC // BNB Feedback Municipality PDF Generator
+# BNB Feedback Municipality PDF Generator
 
 This project is a proof of concept for generating PDF files for municipalities.  
 
@@ -45,43 +45,7 @@ Start Express server on `http://localhost:3000`
 yarn generate-pdf
 ```
 
-Generate PDF from `http://localhost:3000` and save it in `./export/{{municipality-name}}.pdf`.
-
-## Excel file format
-
-Each line of the Excel file represents a govening body. The column names are used to extract informations. 
-
-Required columns:
-- `Gemeente`
-- `Bestuursorgaan`
-- `Agendapunt (Niveau 1)`
-- `Agendapunt - beschrijving (Niveau 1)`
-- `Agendapunt - titel (Niveau 1)`
-- `BehandelingVanAgendapunt (Niveau 1)`
-- `BehandelingVanAgendapunt - heeftOnderwerp (Niveau 1)`
-- `BehandelingVanAgendapunt - heeftStemming (Niveau 1)`
-- `Besluit (Niveau 1)`
-- `Besluit - beschrijving (Niveau 1)`
-- `Besluit - publicatiedatum (Bonusniveau)`
-- `Besluit - inhoud (Bonusniveau)`
-- `Besluit - titel (Bonusniveau)`
-- `Bestuurseenheid`
-- `Bestuurseenheid - naam (Bonusniveau)`
-- `Bestuursorgaan (Bonusniveau)`
-- `Bestuursorgaan - naam (Bonusniveau)`
-- `Stemming - geheim (Niveau 1)`
-- `Stemming - gevolg (Niveau 3)`
-- `Stemming - onderwerp (Niveau 1)`
-- `Stemming - aantalOnthouders (Niveau 1)`
-- `Stemming - aantalTegenstanders (Niveau 1)`
-- `Stemming - aantalVoorstanders (Niveau 1)`
-- `Stemming - heeftaanwezige (Niveau 1)`
-- `Stemming - heeftOnthouder (Niveau 1)`
-- `Stemming - heeftTegenstander (Niveau 1)`
-- `Stemming - heeftVoorstander (Niveau 1)`
-- `Zitting - geplandeStart (Niveau 1)`
-- `Zitting - heeftAanwezigeBijStart (Niveau 3)`
-- `Zitting - eind (Niveau 1)`
+Generate PDF from `http://localhost:3000` and save it in `./export/municipalities/{{municipality-name}}/{{municipality-name}}-{{date}}.pdf`.
 
 ## Technologies used
 
