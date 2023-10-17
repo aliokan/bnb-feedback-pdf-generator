@@ -1,6 +1,6 @@
 # BNB Feedback Municipality PDF Generator
 
-This project is a proof of concept for generating PDF files for municipalities.  
+This project is a proof of concept for generating PDF files for municipalities and vendors.
 
 ### Prerequisites
 
@@ -21,7 +21,9 @@ yarn install
 yarn extract-data
 ```
 
-It extract data from `./input.xlsx`, rename field in english snake case and save it in `./data.json`.
+It extract data from `./input.xlsx`, rename field in english snake case and save it in :  
+- `./data.json` used to generate municipalities rapports
+- `./data-vendors.json` used to generate vendors rapports 
 
 #### 2. build CSS
 
@@ -45,7 +47,15 @@ Start Express server on `http://localhost:3000`
 yarn generate-pdf
 ```
 
-Generate PDF from `http://localhost:3000` and save it in `./export/municipalities/{{municipality-name}}/{{municipality-name}}-{{date}}.pdf`.
+Generate PDF from `http://localhost:3000` and save it in :
+- `./export/municipalities/{{municipality-name}}/{{municipality-name}}-{{date}}.pdf`
+- `./export/vendors/{{vendor-name}}/{{vendor-name}}-{{date}}.pdf`
+
+#### clear export folder
+
+```bash
+yarn clear-export
+```
 
 ## Technologies used
 
