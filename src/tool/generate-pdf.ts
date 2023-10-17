@@ -182,7 +182,7 @@ const main = async () => {
   await page.setCacheEnabled(false);
   console.log(dataPath);
 
-  // await generateMunicipalityPDFs(dataPath, page, exportPath);
+  await generateMunicipalityPDFs(dataPath, page, exportPath);
   await generateVendorPDFs(dataVendorPath, page, exportPath);
 
   await browser.close();
