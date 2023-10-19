@@ -90,7 +90,7 @@ const getVendor = (url: string): Vendor | undefined => {
     ? Vendor.Remmicom
     : url.includes("powerappsportals.com")
     ? Vendor.C_clear_LB365_Savaco_Thrives
-    : url.includes("ebesluit.antwerpen.be")
+    : url.includes("antwerpen.be")
     ? Vendor.Antwerpen
     : undefined;
 
